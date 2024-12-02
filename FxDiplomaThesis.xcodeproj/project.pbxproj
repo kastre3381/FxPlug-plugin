@@ -1,0 +1,802 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		E7FFD7A12CFE4EFE0051D5D6 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7FFD7A02CFE4EFE0051D5D6 /* Cocoa.framework */; };
+		E7FFD7A92CFE4EFE0051D5D6 /* FxDiplomaThesis XPC Service.pluginkit in Embed PlugIns */ = {isa = PBXBuildFile; fileRef = E7FFD7A82CFE4EFE0051D5D6 /* FxDiplomaThesis XPC Service.pluginkit */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E7FFD7AD2CFE4EFE0051D5D6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7FFD7AC2CFE4EFE0051D5D6 /* Foundation.framework */; };
+		E7FFD7AF2CFE4EFE0051D5D6 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7FFD7AE2CFE4EFE0051D5D6 /* AppKit.framework */; };
+		E7FFD7B12CFE4EFE0051D5D6 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7FFD7B02CFE4EFE0051D5D6 /* Accelerate.framework */; };
+		E7FFD7B32CFE4EFE0051D5D6 /* PluginManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7FFD7B22CFE4EFE0051D5D6 /* PluginManager.framework */; };
+		E7FFD7B52CFE4EFE0051D5D6 /* FxPlug.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7FFD7B42CFE4EFE0051D5D6 /* FxPlug.framework */; };
+		E7FFD7BC2CFE4EFE0051D5D6 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E7FFD7BB2CFE4EFE0051D5D6 /* AppDelegate.m */; };
+		E7FFD7C02CFE4EFE0051D5D6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E7FFD7BF2CFE4EFE0051D5D6 /* main.m */; };
+		E7FFD7C22CFE4EFE0051D5D6 /* FxDiplomaThesisPlugIn.m in Sources */ = {isa = PBXBuildFile; fileRef = E7FFD7C12CFE4EFE0051D5D6 /* FxDiplomaThesisPlugIn.m */; };
+		E7FFD7C72CFE4EFE0051D5D6 /* en in Resources */ = {isa = PBXBuildFile; fileRef = E7FFD7C62CFE4EFE0051D5D6 /* en */; };
+		E7FFD7CC2CFE4EFE0051D5D6 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = E7FFD7CB2CFE4EFE0051D5D6 /* Base */; };
+		E7FFD7CF2CFE4EFE0051D5D6 /* en in Resources */ = {isa = PBXBuildFile; fileRef = E7FFD7CE2CFE4EFE0051D5D6 /* en */; };
+		E7FFD7D52CFE4EFE0051D5D6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E7FFD7D42CFE4EFE0051D5D6 /* main.m */; };
+		E7FFD7D92CFE4EFE0051D5D6 /* en in Resources */ = {isa = PBXBuildFile; fileRef = E7FFD7D82CFE4EFE0051D5D6 /* en */; };
+		E7FFD7DC2CFE4EFE0051D5D6 /* en in Resources */ = {isa = PBXBuildFile; fileRef = E7FFD7DB2CFE4EFE0051D5D6 /* en */; };
+		E7FFD81B2CFE51B20051D5D6 /* VertexShaders.metal in Resources */ = {isa = PBXBuildFile; fileRef = E7FFD8102CFE50D40051D5D6 /* VertexShaders.metal */; };
+		E7FFD81C2CFE51B20051D5D6 /* BasicShader.metal in Resources */ = {isa = PBXBuildFile; fileRef = E7FFD7F82CFE50C20051D5D6 /* BasicShader.metal */; };
+		E7FFD81D2CFE51B20051D5D6 /* BlurShader.metal in Resources */ = {isa = PBXBuildFile; fileRef = E7FFD7F92CFE50C20051D5D6 /* BlurShader.metal */; };
+		E7FFD81E2CFE51B20051D5D6 /* DefaultShader.metal in Resources */ = {isa = PBXBuildFile; fileRef = E7FFD7FA2CFE50C20051D5D6 /* DefaultShader.metal */; };
+		E7FFD81F2CFE51B20051D5D6 /* EchoShader.metal in Resources */ = {isa = PBXBuildFile; fileRef = E7FFD7FB2CFE50C20051D5D6 /* EchoShader.metal */; };
+		E7FFD8202CFE51B20051D5D6 /* EdgeDetectionShader.metal in Resources */ = {isa = PBXBuildFile; fileRef = E7FFD7FC2CFE50C20051D5D6 /* EdgeDetectionShader.metal */; };
+		E7FFD8212CFE51B20051D5D6 /* FishEyeShader.metal in Resources */ = {isa = PBXBuildFile; fileRef = E7FFD7FD2CFE50C20051D5D6 /* FishEyeShader.metal */; };
+		E7FFD8232CFE51B20051D5D6 /* LensFlareShader.metal in Resources */ = {isa = PBXBuildFile; fileRef = E7FFD7FF2CFE50C20051D5D6 /* LensFlareShader.metal */; };
+		E7FFD8242CFE51B20051D5D6 /* OilPaintingShader.metal in Resources */ = {isa = PBXBuildFile; fileRef = E7FFD8002CFE50C20051D5D6 /* OilPaintingShader.metal */; };
+		E7FFD8262CFE51B20051D5D6 /* PixelationShader.metal in Resources */ = {isa = PBXBuildFile; fileRef = E7FFD8022CFE50C20051D5D6 /* PixelationShader.metal */; };
+		E7FFD8272CFE52480051D5D6 /* VertexShaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = E7FFD8102CFE50D40051D5D6 /* VertexShaders.metal */; };
+		E7FFD8282CFE52480051D5D6 /* BasicShader.metal in Sources */ = {isa = PBXBuildFile; fileRef = E7FFD7F82CFE50C20051D5D6 /* BasicShader.metal */; };
+		E7FFD8292CFE52480051D5D6 /* BlurShader.metal in Sources */ = {isa = PBXBuildFile; fileRef = E7FFD7F92CFE50C20051D5D6 /* BlurShader.metal */; };
+		E7FFD82A2CFE52480051D5D6 /* DefaultShader.metal in Sources */ = {isa = PBXBuildFile; fileRef = E7FFD7FA2CFE50C20051D5D6 /* DefaultShader.metal */; };
+		E7FFD82B2CFE52480051D5D6 /* EchoShader.metal in Sources */ = {isa = PBXBuildFile; fileRef = E7FFD7FB2CFE50C20051D5D6 /* EchoShader.metal */; };
+		E7FFD82C2CFE52480051D5D6 /* EdgeDetectionShader.metal in Sources */ = {isa = PBXBuildFile; fileRef = E7FFD7FC2CFE50C20051D5D6 /* EdgeDetectionShader.metal */; };
+		E7FFD82D2CFE52480051D5D6 /* FishEyeShader.metal in Sources */ = {isa = PBXBuildFile; fileRef = E7FFD7FD2CFE50C20051D5D6 /* FishEyeShader.metal */; };
+		E7FFD82F2CFE52480051D5D6 /* LensFlareShader.metal in Sources */ = {isa = PBXBuildFile; fileRef = E7FFD7FF2CFE50C20051D5D6 /* LensFlareShader.metal */; };
+		E7FFD8302CFE52480051D5D6 /* OilPaintingShader.metal in Sources */ = {isa = PBXBuildFile; fileRef = E7FFD8002CFE50C20051D5D6 /* OilPaintingShader.metal */; };
+		E7FFD8322CFE52480051D5D6 /* PixelationShader.metal in Sources */ = {isa = PBXBuildFile; fileRef = E7FFD8022CFE50C20051D5D6 /* PixelationShader.metal */; };
+		E7FFD8332CFE524F0051D5D6 /* MetalDeviceCache.mm in Sources */ = {isa = PBXBuildFile; fileRef = E7FFD8132CFE50F10051D5D6 /* MetalDeviceCache.mm */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		E7FFD7AA2CFE4EFE0051D5D6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E7FFD7952CFE4EFE0051D5D6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E7FFD7A72CFE4EFE0051D5D6;
+			remoteInfo = "XPC Service";
+		};
+		E7FFD7B62CFE4EFE0051D5D6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E7FFD7952CFE4EFE0051D5D6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E7FFD7A72CFE4EFE0051D5D6;
+			remoteInfo = "XPC Service";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		E7FFD7E22CFE4EFE0051D5D6 /* Embed PlugIns */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				E7FFD7A92CFE4EFE0051D5D6 /* FxDiplomaThesis XPC Service.pluginkit in Embed PlugIns */,
+			);
+			name = "Embed PlugIns";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		E7FFD79D2CFE4EFE0051D5D6 /* FxDiplomaThesis.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FxDiplomaThesis.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E7FFD7A02CFE4EFE0051D5D6 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		E7FFD7A82CFE4EFE0051D5D6 /* FxDiplomaThesis XPC Service.pluginkit */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "FxDiplomaThesis XPC Service.pluginkit"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E7FFD7AC2CFE4EFE0051D5D6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		E7FFD7AE2CFE4EFE0051D5D6 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		E7FFD7B02CFE4EFE0051D5D6 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		E7FFD7B22CFE4EFE0051D5D6 /* PluginManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PluginManager.framework; path = Library/Frameworks/../../../../../../Library/Developer/Frameworks/PluginManager.framework; sourceTree = DEVELOPER_DIR; };
+		E7FFD7B42CFE4EFE0051D5D6 /* FxPlug.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FxPlug.framework; path = Library/Frameworks/../../../../../../Library/Developer/Frameworks/FxPlug.framework; sourceTree = DEVELOPER_DIR; };
+		E7FFD7BA2CFE4EFE0051D5D6 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		E7FFD7BB2CFE4EFE0051D5D6 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		E7FFD7BE2CFE4EFE0051D5D6 /* FxDiplomaThesisPlugIn.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FxDiplomaThesisPlugIn.h; sourceTree = "<group>"; };
+		E7FFD7BF2CFE4EFE0051D5D6 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		E7FFD7C12CFE4EFE0051D5D6 /* FxDiplomaThesisPlugIn.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; path = FxDiplomaThesisPlugIn.m; sourceTree = "<group>"; };
+		E7FFD7C32CFE4EFE0051D5D6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E7FFD7C62CFE4EFE0051D5D6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		E7FFD7CB2CFE4EFE0051D5D6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		E7FFD7CE2CFE4EFE0051D5D6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
+		E7FFD7D22CFE4EFE0051D5D6 /* SandboxEntitlements.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SandboxEntitlements.entitlements; sourceTree = "<group>"; };
+		E7FFD7D42CFE4EFE0051D5D6 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		E7FFD7D62CFE4EFE0051D5D6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E7FFD7D82CFE4EFE0051D5D6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		E7FFD7DB2CFE4EFE0051D5D6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		E7FFD7E92CFE504F0051D5D6 /* Renderer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Renderer.h; sourceTree = "<group>"; };
+		E7FFD7EB2CFE50570051D5D6 /* Renderer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Renderer.h; sourceTree = "<group>"; };
+		E7FFD7ED2CFE50620051D5D6 /* Renderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Renderer.h; sourceTree = "<group>"; };
+		E7FFD7EF2CFE506B0051D5D6 /* ParameterManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParameterManager.h; sourceTree = "<group>"; };
+		E7FFD7F12CFE509B0051D5D6 /* Matrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Matrix.h; sourceTree = "<group>"; };
+		E7FFD7F22CFE509B0051D5D6 /* MatrixCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MatrixCache.h; sourceTree = "<group>"; };
+		E7FFD7F42CFE50A20051D5D6 /* Matrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Matrix.h; sourceTree = "<group>"; };
+		E7FFD7F52CFE50A20051D5D6 /* MatrixCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MatrixCache.h; sourceTree = "<group>"; };
+		E7FFD7F72CFE50BA0051D5D6 /* ShaderTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShaderTypes.h; sourceTree = "<group>"; };
+		E7FFD7F82CFE50C20051D5D6 /* BasicShader.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = BasicShader.metal; sourceTree = "<group>"; };
+		E7FFD7F92CFE50C20051D5D6 /* BlurShader.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = BlurShader.metal; sourceTree = "<group>"; };
+		E7FFD7FA2CFE50C20051D5D6 /* DefaultShader.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = DefaultShader.metal; sourceTree = "<group>"; };
+		E7FFD7FB2CFE50C20051D5D6 /* EchoShader.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = EchoShader.metal; sourceTree = "<group>"; };
+		E7FFD7FC2CFE50C20051D5D6 /* EdgeDetectionShader.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = EdgeDetectionShader.metal; sourceTree = "<group>"; };
+		E7FFD7FD2CFE50C20051D5D6 /* FishEyeShader.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = FishEyeShader.metal; sourceTree = "<group>"; };
+		E7FFD7FF2CFE50C20051D5D6 /* LensFlareShader.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = LensFlareShader.metal; sourceTree = "<group>"; };
+		E7FFD8002CFE50C20051D5D6 /* OilPaintingShader.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = OilPaintingShader.metal; sourceTree = "<group>"; };
+		E7FFD8022CFE50C20051D5D6 /* PixelationShader.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = PixelationShader.metal; sourceTree = "<group>"; };
+		E7FFD8102CFE50D40051D5D6 /* VertexShaders.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = VertexShaders.metal; sourceTree = "<group>"; };
+		E7FFD8122CFE50F10051D5D6 /* MetalDeviceCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MetalDeviceCache.h; sourceTree = "<group>"; };
+		E7FFD8132CFE50F10051D5D6 /* MetalDeviceCache.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MetalDeviceCache.mm; sourceTree = "<group>"; };
+		E7FFD8142CFE50F10051D5D6 /* PipelineTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PipelineTypes.h; sourceTree = "<group>"; };
+		E7FFD8182CFE51740051D5D6 /* ParameterFlags.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ParameterFlags.h; sourceTree = "<group>"; };
+		E7FFD8192CFE51740051D5D6 /* PluginState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PluginState.h; sourceTree = "<group>"; };
+		E7FFD81A2CFE51740051D5D6 /* EffectTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EffectTypes.h; sourceTree = "<group>"; };
+		E7FFD8342CFE535F0051D5D6 /* RasterizerData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RasterizerData.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		E7FFD79A2CFE4EFE0051D5D6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E7FFD7A12CFE4EFE0051D5D6 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E7FFD7A32CFE4EFE0051D5D6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E7FFD7B12CFE4EFE0051D5D6 /* Accelerate.framework in Frameworks */,
+				E7FFD7B32CFE4EFE0051D5D6 /* PluginManager.framework in Frameworks */,
+				E7FFD7AD2CFE4EFE0051D5D6 /* Foundation.framework in Frameworks */,
+				E7FFD7AF2CFE4EFE0051D5D6 /* AppKit.framework in Frameworks */,
+				E7FFD7B52CFE4EFE0051D5D6 /* FxPlug.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		E7FFD7942CFE4EFE0051D5D6 = {
+			isa = PBXGroup;
+			children = (
+				E7FFD7B82CFE4EFE0051D5D6 /* FxDiplomaThesis */,
+				E7FFD79F2CFE4EFE0051D5D6 /* Frameworks */,
+				E7FFD79E2CFE4EFE0051D5D6 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		E7FFD79E2CFE4EFE0051D5D6 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E7FFD79D2CFE4EFE0051D5D6 /* FxDiplomaThesis.app */,
+				E7FFD7A82CFE4EFE0051D5D6 /* FxDiplomaThesis XPC Service.pluginkit */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E7FFD79F2CFE4EFE0051D5D6 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E7FFD7A02CFE4EFE0051D5D6 /* Cocoa.framework */,
+				E7FFD7AC2CFE4EFE0051D5D6 /* Foundation.framework */,
+				E7FFD7AE2CFE4EFE0051D5D6 /* AppKit.framework */,
+				E7FFD7B02CFE4EFE0051D5D6 /* Accelerate.framework */,
+				E7FFD7B22CFE4EFE0051D5D6 /* PluginManager.framework */,
+				E7FFD7B42CFE4EFE0051D5D6 /* FxPlug.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E7FFD7B82CFE4EFE0051D5D6 /* FxDiplomaThesis */ = {
+			isa = PBXGroup;
+			children = (
+				E7FFD7B92CFE4EFE0051D5D6 /* Wrapper Application */,
+				E7FFD7BD2CFE4EFE0051D5D6 /* Plugin */,
+			);
+			path = FxDiplomaThesis;
+			sourceTree = "<group>";
+		};
+		E7FFD7B92CFE4EFE0051D5D6 /* Wrapper Application */ = {
+			isa = PBXGroup;
+			children = (
+				E7FFD7EA2CFE504F0051D5D6 /* Renderer */,
+				E7FFD7EC2CFE50570051D5D6 /* Renderer */,
+				E7FFD7BA2CFE4EFE0051D5D6 /* AppDelegate.h */,
+				E7FFD7BB2CFE4EFE0051D5D6 /* AppDelegate.m */,
+				E7FFD7BF2CFE4EFE0051D5D6 /* main.m */,
+				E7FFD7C32CFE4EFE0051D5D6 /* Info.plist */,
+				E7FFD7C52CFE4EFE0051D5D6 /* InfoPlist.strings */,
+				E7FFD7CA2CFE4EFE0051D5D6 /* MainMenu.xib */,
+				E7FFD7CD2CFE4EFE0051D5D6 /* Credits.rtf */,
+				E7FFD7D22CFE4EFE0051D5D6 /* SandboxEntitlements.entitlements */,
+			);
+			path = "Wrapper Application";
+			sourceTree = "<group>";
+		};
+		E7FFD7BD2CFE4EFE0051D5D6 /* Plugin */ = {
+			isa = PBXGroup;
+			children = (
+				E7FFD8152CFE50F10051D5D6 /* Device */,
+				E7FFD7F62CFE50A20051D5D6 /* Calculations */,
+				E7FFD7F02CFE506B0051D5D6 /* ParameterManager */,
+				E7FFD7EE2CFE50620051D5D6 /* Renderer */,
+				E7FFD7E72CFE501F0051D5D6 /* Shaders */,
+				E7FFD7BE2CFE4EFE0051D5D6 /* FxDiplomaThesisPlugIn.h */,
+				E7FFD7C12CFE4EFE0051D5D6 /* FxDiplomaThesisPlugIn.m */,
+				E7FFD81A2CFE51740051D5D6 /* EffectTypes.h */,
+				E7FFD8182CFE51740051D5D6 /* ParameterFlags.h */,
+				E7FFD8192CFE51740051D5D6 /* PluginState.h */,
+				E7FFD7D42CFE4EFE0051D5D6 /* main.m */,
+				E7FFD7D62CFE4EFE0051D5D6 /* Info.plist */,
+				E7FFD7D72CFE4EFE0051D5D6 /* InfoPlist.strings */,
+				E7FFD7DA2CFE4EFE0051D5D6 /* Localizable.strings */,
+			);
+			path = Plugin;
+			sourceTree = "<group>";
+		};
+		E7FFD7E72CFE501F0051D5D6 /* Shaders */ = {
+			isa = PBXGroup;
+			children = (
+				E7FFD8342CFE535F0051D5D6 /* RasterizerData.h */,
+				E7FFD7F72CFE50BA0051D5D6 /* ShaderTypes.h */,
+				E7FFD8102CFE50D40051D5D6 /* VertexShaders.metal */,
+				E7FFD7F82CFE50C20051D5D6 /* BasicShader.metal */,
+				E7FFD7F92CFE50C20051D5D6 /* BlurShader.metal */,
+				E7FFD7FA2CFE50C20051D5D6 /* DefaultShader.metal */,
+				E7FFD7FB2CFE50C20051D5D6 /* EchoShader.metal */,
+				E7FFD7FC2CFE50C20051D5D6 /* EdgeDetectionShader.metal */,
+				E7FFD7FD2CFE50C20051D5D6 /* FishEyeShader.metal */,
+				E7FFD7FF2CFE50C20051D5D6 /* LensFlareShader.metal */,
+				E7FFD8002CFE50C20051D5D6 /* OilPaintingShader.metal */,
+				E7FFD8022CFE50C20051D5D6 /* PixelationShader.metal */,
+				E7FFD80F2CFE50CC0051D5D6 /* Vertex */,
+				E7FFD8032CFE50C20051D5D6 /* Fragment */,
+			);
+			name = Shaders;
+			sourceTree = "<group>";
+		};
+		E7FFD7EA2CFE504F0051D5D6 /* Renderer */ = {
+			isa = PBXGroup;
+			children = (
+				E7FFD7E92CFE504F0051D5D6 /* Renderer.h */,
+			);
+			name = Renderer;
+			path = ../../../FxPlug/FxStartPlugin/FxStartPlugin/Plugin/Renderer;
+			sourceTree = "<group>";
+		};
+		E7FFD7EC2CFE50570051D5D6 /* Renderer */ = {
+			isa = PBXGroup;
+			children = (
+				E7FFD7EB2CFE50570051D5D6 /* Renderer.h */,
+			);
+			path = Renderer;
+			sourceTree = "<group>";
+		};
+		E7FFD7EE2CFE50620051D5D6 /* Renderer */ = {
+			isa = PBXGroup;
+			children = (
+				E7FFD7ED2CFE50620051D5D6 /* Renderer.h */,
+			);
+			path = Renderer;
+			sourceTree = "<group>";
+		};
+		E7FFD7F02CFE506B0051D5D6 /* ParameterManager */ = {
+			isa = PBXGroup;
+			children = (
+				E7FFD7F32CFE509B0051D5D6 /* Calculations */,
+				E7FFD7EF2CFE506B0051D5D6 /* ParameterManager.h */,
+			);
+			path = ParameterManager;
+			sourceTree = "<group>";
+		};
+		E7FFD7F32CFE509B0051D5D6 /* Calculations */ = {
+			isa = PBXGroup;
+			children = (
+				E7FFD7F12CFE509B0051D5D6 /* Matrix.h */,
+				E7FFD7F22CFE509B0051D5D6 /* MatrixCache.h */,
+			);
+			path = Calculations;
+			sourceTree = "<group>";
+		};
+		E7FFD7F62CFE50A20051D5D6 /* Calculations */ = {
+			isa = PBXGroup;
+			children = (
+				E7FFD7F42CFE50A20051D5D6 /* Matrix.h */,
+				E7FFD7F52CFE50A20051D5D6 /* MatrixCache.h */,
+			);
+			path = Calculations;
+			sourceTree = "<group>";
+		};
+		E7FFD8032CFE50C20051D5D6 /* Fragment */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Fragment;
+			sourceTree = "<group>";
+		};
+		E7FFD80F2CFE50CC0051D5D6 /* Vertex */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Vertex;
+			sourceTree = "<group>";
+		};
+		E7FFD8152CFE50F10051D5D6 /* Device */ = {
+			isa = PBXGroup;
+			children = (
+				E7FFD8122CFE50F10051D5D6 /* MetalDeviceCache.h */,
+				E7FFD8132CFE50F10051D5D6 /* MetalDeviceCache.mm */,
+				E7FFD8142CFE50F10051D5D6 /* PipelineTypes.h */,
+			);
+			path = Device;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		E7FFD79C2CFE4EFE0051D5D6 /* Wrapper Application */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E7FFD7E32CFE4EFE0051D5D6 /* Build configuration list for PBXNativeTarget "Wrapper Application" */;
+			buildPhases = (
+				E7FFD7992CFE4EFE0051D5D6 /* Sources */,
+				E7FFD79A2CFE4EFE0051D5D6 /* Frameworks */,
+				E7FFD79B2CFE4EFE0051D5D6 /* Resources */,
+				E7FFD7E22CFE4EFE0051D5D6 /* Embed PlugIns */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E7FFD7AB2CFE4EFE0051D5D6 /* PBXTargetDependency */,
+				E7FFD7B72CFE4EFE0051D5D6 /* PBXTargetDependency */,
+			);
+			name = "Wrapper Application";
+			productName = "Wrapper Application";
+			productReference = E7FFD79D2CFE4EFE0051D5D6 /* FxDiplomaThesis.app */;
+			productType = "com.apple.product-type.application";
+		};
+		E7FFD7A72CFE4EFE0051D5D6 /* XPC Service */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E7FFD7DF2CFE4EFE0051D5D6 /* Build configuration list for PBXNativeTarget "XPC Service" */;
+			buildPhases = (
+				E7FFD7A22CFE4EFE0051D5D6 /* Sources */,
+				E7FFD7A32CFE4EFE0051D5D6 /* Frameworks */,
+				E7FFD7A42CFE4EFE0051D5D6 /* Resources */,
+				E7FFD7A52CFE4EFE0051D5D6 /* Copy and Code Sign FxPlug.framework */,
+				E7FFD7A62CFE4EFE0051D5D6 /* Copy and Code Sign PluginManager.framework */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "XPC Service";
+			productName = "XPC Service";
+			productReference = E7FFD7A82CFE4EFE0051D5D6 /* FxDiplomaThesis XPC Service.pluginkit */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		E7FFD7952CFE4EFE0051D5D6 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastUpgradeCheck = 1540;
+				TargetAttributes = {
+					E7FFD79C2CFE4EFE0051D5D6 = {
+						CreatedOnToolsVersion = 15.4;
+					};
+					E7FFD7A72CFE4EFE0051D5D6 = {
+						CreatedOnToolsVersion = 15.4;
+					};
+				};
+			};
+			buildConfigurationList = E7FFD7982CFE4EFE0051D5D6 /* Build configuration list for PBXProject "FxDiplomaThesis" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = E7FFD7942CFE4EFE0051D5D6;
+			productRefGroup = E7FFD79E2CFE4EFE0051D5D6 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				E7FFD79C2CFE4EFE0051D5D6 /* Wrapper Application */,
+				E7FFD7A72CFE4EFE0051D5D6 /* XPC Service */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		E7FFD79B2CFE4EFE0051D5D6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E7FFD81B2CFE51B20051D5D6 /* VertexShaders.metal in Resources */,
+				E7FFD81C2CFE51B20051D5D6 /* BasicShader.metal in Resources */,
+				E7FFD81D2CFE51B20051D5D6 /* BlurShader.metal in Resources */,
+				E7FFD81E2CFE51B20051D5D6 /* DefaultShader.metal in Resources */,
+				E7FFD81F2CFE51B20051D5D6 /* EchoShader.metal in Resources */,
+				E7FFD8202CFE51B20051D5D6 /* EdgeDetectionShader.metal in Resources */,
+				E7FFD8212CFE51B20051D5D6 /* FishEyeShader.metal in Resources */,
+				E7FFD8232CFE51B20051D5D6 /* LensFlareShader.metal in Resources */,
+				E7FFD8242CFE51B20051D5D6 /* OilPaintingShader.metal in Resources */,
+				E7FFD8262CFE51B20051D5D6 /* PixelationShader.metal in Resources */,
+				E7FFD7C72CFE4EFE0051D5D6 /* en in Resources */,
+				E7FFD7CF2CFE4EFE0051D5D6 /* en in Resources */,
+				E7FFD7CC2CFE4EFE0051D5D6 /* Base in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E7FFD7A42CFE4EFE0051D5D6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E7FFD7D92CFE4EFE0051D5D6 /* en in Resources */,
+				E7FFD7DC2CFE4EFE0051D5D6 /* en in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		E7FFD7A52CFE4EFE0051D5D6 /* Copy and Code Sign FxPlug.framework */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Copy and Code Sign FxPlug.framework";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "mkdir -p \"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}\"\nrsync --archive --links --whole-file --no-owner --no-group --checksum --exclude='Headers' \"/Library/Developer/Frameworks/FxPlug.framework/\" \"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FxPlug.framework/\"\nif [ \"$?\" -ne 0 ]; then echo \"error: rsync failed; couldn't embed FxPlug.framework\"; exit 1; fi\ncodesign --force --timestamp --options runtime --sign \"${CODE_SIGN_IDENTITY}\" \"${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/FxPlug.framework\"";
+			showEnvVarsInLog = 0;
+		};
+		E7FFD7A62CFE4EFE0051D5D6 /* Copy and Code Sign PluginManager.framework */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Copy and Code Sign PluginManager.framework";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "mkdir -p \"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}\"\nrsync --archive --links --whole-file --no-owner --no-group --checksum --exclude='Headers' \"/Library/Developer/Frameworks/PluginManager.framework/\" \"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PluginManager.framework/\"\nif [ \"$?\" -ne 0 ]; then echo \"error: rsync failed; couldn't embed PluginManager.framework\"; exit 1; fi\ncodesign --force --timestamp --options runtime --sign \"${CODE_SIGN_IDENTITY}\" \"${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/PluginManager.framework\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		E7FFD7992CFE4EFE0051D5D6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E7FFD7C02CFE4EFE0051D5D6 /* main.m in Sources */,
+				E7FFD7BC2CFE4EFE0051D5D6 /* AppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E7FFD7A22CFE4EFE0051D5D6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E7FFD8332CFE524F0051D5D6 /* MetalDeviceCache.mm in Sources */,
+				E7FFD8272CFE52480051D5D6 /* VertexShaders.metal in Sources */,
+				E7FFD8282CFE52480051D5D6 /* BasicShader.metal in Sources */,
+				E7FFD8292CFE52480051D5D6 /* BlurShader.metal in Sources */,
+				E7FFD82A2CFE52480051D5D6 /* DefaultShader.metal in Sources */,
+				E7FFD82B2CFE52480051D5D6 /* EchoShader.metal in Sources */,
+				E7FFD82C2CFE52480051D5D6 /* EdgeDetectionShader.metal in Sources */,
+				E7FFD82D2CFE52480051D5D6 /* FishEyeShader.metal in Sources */,
+				E7FFD82F2CFE52480051D5D6 /* LensFlareShader.metal in Sources */,
+				E7FFD8302CFE52480051D5D6 /* OilPaintingShader.metal in Sources */,
+				E7FFD8322CFE52480051D5D6 /* PixelationShader.metal in Sources */,
+				E7FFD7D52CFE4EFE0051D5D6 /* main.m in Sources */,
+				E7FFD7C22CFE4EFE0051D5D6 /* FxDiplomaThesisPlugIn.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		E7FFD7AB2CFE4EFE0051D5D6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E7FFD7A72CFE4EFE0051D5D6 /* XPC Service */;
+			targetProxy = E7FFD7AA2CFE4EFE0051D5D6 /* PBXContainerItemProxy */;
+		};
+		E7FFD7B72CFE4EFE0051D5D6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E7FFD7A72CFE4EFE0051D5D6 /* XPC Service */;
+			targetProxy = E7FFD7B62CFE4EFE0051D5D6 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		E7FFD7C52CFE4EFE0051D5D6 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E7FFD7C62CFE4EFE0051D5D6 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		E7FFD7CA2CFE4EFE0051D5D6 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E7FFD7CB2CFE4EFE0051D5D6 /* Base */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+		E7FFD7CD2CFE4EFE0051D5D6 /* Credits.rtf */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E7FFD7CE2CFE4EFE0051D5D6 /* en */,
+			);
+			name = Credits.rtf;
+			sourceTree = "<group>";
+		};
+		E7FFD7D72CFE4EFE0051D5D6 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E7FFD7D82CFE4EFE0051D5D6 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		E7FFD7DA2CFE4EFE0051D5D6 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E7FFD7DB2CFE4EFE0051D5D6 /* en */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		E7FFD7DD2CFE4EFE0051D5D6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ADDITIONAL_SDKS = /Library/Developer/SDKs/FxPlug.sdk;
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = NO;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					/Library/Frameworks,
+					"$(inherited)",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.4;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5;
+			};
+			name = Debug;
+		};
+		E7FFD7DE2CFE4EFE0051D5D6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ADDITIONAL_SDKS = /Library/Developer/SDKs/FxPlug.sdk;
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = NO;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					/Library/Frameworks,
+					"$(inherited)",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5;
+			};
+			name = Release;
+		};
+		E7FFD7E02CFE4EFE0051D5D6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = GQ59QL5AH8;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				INFOPLIST_FILE = FxDiplomaThesis/Plugin/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@loader_path/../Frameworks",
+				);
+				MACH_O_TYPE = mh_execute;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = "FxDiplomaThesis $(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "FxDiplomaThesis/Plugin/XPC Service-Bridging-Header.h";
+				WRAPPER_EXTENSION = pluginkit;
+			};
+			name = Debug;
+		};
+		E7FFD7E12CFE4EFE0051D5D6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = GQ59QL5AH8;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				INFOPLIST_FILE = FxDiplomaThesis/Plugin/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@loader_path/../Frameworks",
+				);
+				MACH_O_TYPE = mh_execute;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = "FxDiplomaThesis $(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "FxDiplomaThesis/Plugin/XPC Service-Bridging-Header.h";
+				WRAPPER_EXTENSION = pluginkit;
+			};
+			name = Release;
+		};
+		E7FFD7E42CFE4EFE0051D5D6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "FxDiplomaThesis/Wrapper Application/SandboxEntitlements.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = GQ59QL5AH8;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				INFOPLIST_FILE = "FxDiplomaThesis/Wrapper Application/Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = FxDiplomaThesis;
+				SWIFT_OBJC_BRIDGING_HEADER = "FxDiplomaThesis/Wrapper Application/Wrapper Application-Bridging-Header.h";
+			};
+			name = Debug;
+		};
+		E7FFD7E52CFE4EFE0051D5D6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "FxDiplomaThesis/Wrapper Application/SandboxEntitlements.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = GQ59QL5AH8;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				INFOPLIST_FILE = "FxDiplomaThesis/Wrapper Application/Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = FxDiplomaThesis;
+				SWIFT_OBJC_BRIDGING_HEADER = "FxDiplomaThesis/Wrapper Application/Wrapper Application-Bridging-Header.h";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		E7FFD7982CFE4EFE0051D5D6 /* Build configuration list for PBXProject "FxDiplomaThesis" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E7FFD7DD2CFE4EFE0051D5D6 /* Debug */,
+				E7FFD7DE2CFE4EFE0051D5D6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E7FFD7DF2CFE4EFE0051D5D6 /* Build configuration list for PBXNativeTarget "XPC Service" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E7FFD7E02CFE4EFE0051D5D6 /* Debug */,
+				E7FFD7E12CFE4EFE0051D5D6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E7FFD7E32CFE4EFE0051D5D6 /* Build configuration list for PBXNativeTarget "Wrapper Application" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E7FFD7E42CFE4EFE0051D5D6 /* Debug */,
+				E7FFD7E52CFE4EFE0051D5D6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = E7FFD7952CFE4EFE0051D5D6 /* Project object */;
+}

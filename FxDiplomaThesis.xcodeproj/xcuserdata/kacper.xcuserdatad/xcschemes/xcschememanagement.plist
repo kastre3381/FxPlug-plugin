@@ -4,19 +4,44 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>Wrapper Application 1.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>2</integer>
+		</dict>
 		<key>Wrapper Application.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
-		<key>XPC Service.xcscheme_^#shared#^_</key>
+		<key>Wrapper Application2.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>1</integer>
 		</dict>
+		<key>XPC Service.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>3</integer>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>E7AE99E32D15BD200015523D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E7AE99FB2D15BD220015523D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E7AE9A052D15BD220015523D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>E7FFD79C2CFE4EFE0051D5D6</key>
 		<dict>
 			<key>primary</key>

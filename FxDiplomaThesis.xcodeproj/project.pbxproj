@@ -7,6 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E7AE9A262D1614080015523D /* VertexShaders.metal in Resources */ = {isa = PBXBuildFile; fileRef = E7FFD8102CFE50D40051D5D6 /* VertexShaders.metal */; };
+		E7AE9A272D1614080015523D /* BasicShader.metal in Resources */ = {isa = PBXBuildFile; fileRef = E7FFD7F82CFE50C20051D5D6 /* BasicShader.metal */; };
+		E7AE9A282D1614080015523D /* BlurShader.metal in Resources */ = {isa = PBXBuildFile; fileRef = E7FFD7F92CFE50C20051D5D6 /* BlurShader.metal */; };
+		E7AE9A292D1614080015523D /* DefaultShader.metal in Resources */ = {isa = PBXBuildFile; fileRef = E7FFD7FA2CFE50C20051D5D6 /* DefaultShader.metal */; };
+		E7AE9A2A2D1614080015523D /* EchoShader.metal in Resources */ = {isa = PBXBuildFile; fileRef = E7FFD7FB2CFE50C20051D5D6 /* EchoShader.metal */; };
+		E7AE9A2B2D1614080015523D /* EdgeDetectionShader.metal in Resources */ = {isa = PBXBuildFile; fileRef = E7FFD7FC2CFE50C20051D5D6 /* EdgeDetectionShader.metal */; };
+		E7AE9A2C2D1614080015523D /* FishEyeShader.metal in Resources */ = {isa = PBXBuildFile; fileRef = E7FFD7FD2CFE50C20051D5D6 /* FishEyeShader.metal */; };
+		E7AE9A2D2D1614080015523D /* LensFlareShader.metal in Resources */ = {isa = PBXBuildFile; fileRef = E7FFD7FF2CFE50C20051D5D6 /* LensFlareShader.metal */; };
+		E7AE9A2E2D1614080015523D /* OilPaintingShader.metal in Resources */ = {isa = PBXBuildFile; fileRef = E7FFD8002CFE50C20051D5D6 /* OilPaintingShader.metal */; };
+		E7AE9A2F2D1614080015523D /* PixelationShader.metal in Resources */ = {isa = PBXBuildFile; fileRef = E7FFD8022CFE50C20051D5D6 /* PixelationShader.metal */; };
+		E7AE9A302D1614080015523D /* OSCShader.metal in Resources */ = {isa = PBXBuildFile; fileRef = E7F291352D0C5E3D00D9FBF2 /* OSCShader.metal */; };
+		E7F291372D0C5E3D00D9FBF2 /* OSCShader.metal in Sources */ = {isa = PBXBuildFile; fileRef = E7F291352D0C5E3D00D9FBF2 /* OSCShader.metal */; };
 		E7FFD7A12CFE4EFE0051D5D6 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7FFD7A02CFE4EFE0051D5D6 /* Cocoa.framework */; };
 		E7FFD7A92CFE4EFE0051D5D6 /* FxDiplomaThesis XPC Service.pluginkit in Embed PlugIns */ = {isa = PBXBuildFile; fileRef = E7FFD7A82CFE4EFE0051D5D6 /* FxDiplomaThesis XPC Service.pluginkit */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E7FFD7AD2CFE4EFE0051D5D6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7FFD7AC2CFE4EFE0051D5D6 /* Foundation.framework */; };
@@ -23,16 +35,6 @@
 		E7FFD7D52CFE4EFE0051D5D6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E7FFD7D42CFE4EFE0051D5D6 /* main.m */; };
 		E7FFD7D92CFE4EFE0051D5D6 /* en in Resources */ = {isa = PBXBuildFile; fileRef = E7FFD7D82CFE4EFE0051D5D6 /* en */; };
 		E7FFD7DC2CFE4EFE0051D5D6 /* en in Resources */ = {isa = PBXBuildFile; fileRef = E7FFD7DB2CFE4EFE0051D5D6 /* en */; };
-		E7FFD81B2CFE51B20051D5D6 /* VertexShaders.metal in Resources */ = {isa = PBXBuildFile; fileRef = E7FFD8102CFE50D40051D5D6 /* VertexShaders.metal */; };
-		E7FFD81C2CFE51B20051D5D6 /* BasicShader.metal in Resources */ = {isa = PBXBuildFile; fileRef = E7FFD7F82CFE50C20051D5D6 /* BasicShader.metal */; };
-		E7FFD81D2CFE51B20051D5D6 /* BlurShader.metal in Resources */ = {isa = PBXBuildFile; fileRef = E7FFD7F92CFE50C20051D5D6 /* BlurShader.metal */; };
-		E7FFD81E2CFE51B20051D5D6 /* DefaultShader.metal in Resources */ = {isa = PBXBuildFile; fileRef = E7FFD7FA2CFE50C20051D5D6 /* DefaultShader.metal */; };
-		E7FFD81F2CFE51B20051D5D6 /* EchoShader.metal in Resources */ = {isa = PBXBuildFile; fileRef = E7FFD7FB2CFE50C20051D5D6 /* EchoShader.metal */; };
-		E7FFD8202CFE51B20051D5D6 /* EdgeDetectionShader.metal in Resources */ = {isa = PBXBuildFile; fileRef = E7FFD7FC2CFE50C20051D5D6 /* EdgeDetectionShader.metal */; };
-		E7FFD8212CFE51B20051D5D6 /* FishEyeShader.metal in Resources */ = {isa = PBXBuildFile; fileRef = E7FFD7FD2CFE50C20051D5D6 /* FishEyeShader.metal */; };
-		E7FFD8232CFE51B20051D5D6 /* LensFlareShader.metal in Resources */ = {isa = PBXBuildFile; fileRef = E7FFD7FF2CFE50C20051D5D6 /* LensFlareShader.metal */; };
-		E7FFD8242CFE51B20051D5D6 /* OilPaintingShader.metal in Resources */ = {isa = PBXBuildFile; fileRef = E7FFD8002CFE50C20051D5D6 /* OilPaintingShader.metal */; };
-		E7FFD8262CFE51B20051D5D6 /* PixelationShader.metal in Resources */ = {isa = PBXBuildFile; fileRef = E7FFD8022CFE50C20051D5D6 /* PixelationShader.metal */; };
 		E7FFD8272CFE52480051D5D6 /* VertexShaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = E7FFD8102CFE50D40051D5D6 /* VertexShaders.metal */; };
 		E7FFD8282CFE52480051D5D6 /* BasicShader.metal in Sources */ = {isa = PBXBuildFile; fileRef = E7FFD7F82CFE50C20051D5D6 /* BasicShader.metal */; };
 		E7FFD8292CFE52480051D5D6 /* BlurShader.metal in Sources */ = {isa = PBXBuildFile; fileRef = E7FFD7F92CFE50C20051D5D6 /* BlurShader.metal */; };
@@ -78,6 +80,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		E7AE99842D0F22F80015523D /* OSC.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; path = OSC.h; sourceTree = "<group>"; };
+		E7AE99872D12F87C0015523D /* Triangulation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Triangulation.h; sourceTree = "<group>"; };
+		E7F291352D0C5E3D00D9FBF2 /* OSCShader.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = OSCShader.metal; sourceTree = "<group>"; };
 		E7FFD79D2CFE4EFE0051D5D6 /* FxDiplomaThesis.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FxDiplomaThesis.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E7FFD7A02CFE4EFE0051D5D6 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		E7FFD7A82CFE4EFE0051D5D6 /* FxDiplomaThesis XPC Service.pluginkit */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "FxDiplomaThesis XPC Service.pluginkit"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -88,7 +93,7 @@
 		E7FFD7B42CFE4EFE0051D5D6 /* FxPlug.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FxPlug.framework; path = Library/Frameworks/../../../../../../Library/Developer/Frameworks/FxPlug.framework; sourceTree = DEVELOPER_DIR; };
 		E7FFD7BA2CFE4EFE0051D5D6 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		E7FFD7BB2CFE4EFE0051D5D6 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		E7FFD7BE2CFE4EFE0051D5D6 /* FxDiplomaThesisPlugIn.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FxDiplomaThesisPlugIn.h; sourceTree = "<group>"; };
+		E7FFD7BE2CFE4EFE0051D5D6 /* FxDiplomaThesisPlugIn.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; path = FxDiplomaThesisPlugIn.h; sourceTree = "<group>"; };
 		E7FFD7BF2CFE4EFE0051D5D6 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		E7FFD7C12CFE4EFE0051D5D6 /* FxDiplomaThesisPlugIn.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; path = FxDiplomaThesisPlugIn.m; sourceTree = "<group>"; };
 		E7FFD7C32CFE4EFE0051D5D6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -100,13 +105,9 @@
 		E7FFD7D62CFE4EFE0051D5D6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E7FFD7D82CFE4EFE0051D5D6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		E7FFD7DB2CFE4EFE0051D5D6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
-		E7FFD7E92CFE504F0051D5D6 /* Renderer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Renderer.h; sourceTree = "<group>"; };
-		E7FFD7EB2CFE50570051D5D6 /* Renderer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Renderer.h; sourceTree = "<group>"; };
 		E7FFD7ED2CFE50620051D5D6 /* Renderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Renderer.h; sourceTree = "<group>"; };
 		E7FFD7EF2CFE506B0051D5D6 /* ParameterManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParameterManager.h; sourceTree = "<group>"; };
-		E7FFD7F12CFE509B0051D5D6 /* Matrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Matrix.h; sourceTree = "<group>"; };
-		E7FFD7F22CFE509B0051D5D6 /* MatrixCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MatrixCache.h; sourceTree = "<group>"; };
-		E7FFD7F42CFE50A20051D5D6 /* Matrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Matrix.h; sourceTree = "<group>"; };
+		E7FFD7F42CFE50A20051D5D6 /* Matrix.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 4; path = Matrix.h; sourceTree = "<group>"; };
 		E7FFD7F52CFE50A20051D5D6 /* MatrixCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MatrixCache.h; sourceTree = "<group>"; };
 		E7FFD7F72CFE50BA0051D5D6 /* ShaderTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShaderTypes.h; sourceTree = "<group>"; };
 		E7FFD7F82CFE50C20051D5D6 /* BasicShader.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = BasicShader.metal; sourceTree = "<group>"; };
@@ -152,6 +153,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E7AE9A182D1612E30015523D /* Shaders */ = {
+			isa = PBXGroup;
+			children = (
+				E7FFD8102CFE50D40051D5D6 /* VertexShaders.metal */,
+				E7FFD7F82CFE50C20051D5D6 /* BasicShader.metal */,
+				E7FFD7F92CFE50C20051D5D6 /* BlurShader.metal */,
+				E7FFD7FA2CFE50C20051D5D6 /* DefaultShader.metal */,
+				E7FFD7FB2CFE50C20051D5D6 /* EchoShader.metal */,
+				E7FFD7FC2CFE50C20051D5D6 /* EdgeDetectionShader.metal */,
+				E7FFD7FD2CFE50C20051D5D6 /* FishEyeShader.metal */,
+				E7FFD7FF2CFE50C20051D5D6 /* LensFlareShader.metal */,
+				E7FFD8002CFE50C20051D5D6 /* OilPaintingShader.metal */,
+				E7FFD8022CFE50C20051D5D6 /* PixelationShader.metal */,
+				E7F291352D0C5E3D00D9FBF2 /* OSCShader.metal */,
+				E7FFD8342CFE535F0051D5D6 /* RasterizerData.h */,
+				E7FFD7F72CFE50BA0051D5D6 /* ShaderTypes.h */,
+			);
+			path = Shaders;
+			sourceTree = "<group>";
+		};
 		E7FFD7942CFE4EFE0051D5D6 = {
 			isa = PBXGroup;
 			children = (
@@ -195,8 +216,6 @@
 		E7FFD7B92CFE4EFE0051D5D6 /* Wrapper Application */ = {
 			isa = PBXGroup;
 			children = (
-				E7FFD7EA2CFE504F0051D5D6 /* Renderer */,
-				E7FFD7EC2CFE50570051D5D6 /* Renderer */,
 				E7FFD7BA2CFE4EFE0051D5D6 /* AppDelegate.h */,
 				E7FFD7BB2CFE4EFE0051D5D6 /* AppDelegate.m */,
 				E7FFD7BF2CFE4EFE0051D5D6 /* main.m */,
@@ -216,9 +235,10 @@
 				E7FFD7F62CFE50A20051D5D6 /* Calculations */,
 				E7FFD7F02CFE506B0051D5D6 /* ParameterManager */,
 				E7FFD7EE2CFE50620051D5D6 /* Renderer */,
-				E7FFD7E72CFE501F0051D5D6 /* Shaders */,
+				E7AE9A182D1612E30015523D /* Shaders */,
 				E7FFD7BE2CFE4EFE0051D5D6 /* FxDiplomaThesisPlugIn.h */,
 				E7FFD7C12CFE4EFE0051D5D6 /* FxDiplomaThesisPlugIn.m */,
+				E7AE99842D0F22F80015523D /* OSC.h */,
 				E7FFD81A2CFE51740051D5D6 /* EffectTypes.h */,
 				E7FFD8182CFE51740051D5D6 /* ParameterFlags.h */,
 				E7FFD8192CFE51740051D5D6 /* PluginState.h */,
@@ -228,44 +248,6 @@
 				E7FFD7DA2CFE4EFE0051D5D6 /* Localizable.strings */,
 			);
 			path = Plugin;
-			sourceTree = "<group>";
-		};
-		E7FFD7E72CFE501F0051D5D6 /* Shaders */ = {
-			isa = PBXGroup;
-			children = (
-				E7FFD8342CFE535F0051D5D6 /* RasterizerData.h */,
-				E7FFD7F72CFE50BA0051D5D6 /* ShaderTypes.h */,
-				E7FFD8102CFE50D40051D5D6 /* VertexShaders.metal */,
-				E7FFD7F82CFE50C20051D5D6 /* BasicShader.metal */,
-				E7FFD7F92CFE50C20051D5D6 /* BlurShader.metal */,
-				E7FFD7FA2CFE50C20051D5D6 /* DefaultShader.metal */,
-				E7FFD7FB2CFE50C20051D5D6 /* EchoShader.metal */,
-				E7FFD7FC2CFE50C20051D5D6 /* EdgeDetectionShader.metal */,
-				E7FFD7FD2CFE50C20051D5D6 /* FishEyeShader.metal */,
-				E7FFD7FF2CFE50C20051D5D6 /* LensFlareShader.metal */,
-				E7FFD8002CFE50C20051D5D6 /* OilPaintingShader.metal */,
-				E7FFD8022CFE50C20051D5D6 /* PixelationShader.metal */,
-				E7FFD80F2CFE50CC0051D5D6 /* Vertex */,
-				E7FFD8032CFE50C20051D5D6 /* Fragment */,
-			);
-			name = Shaders;
-			sourceTree = "<group>";
-		};
-		E7FFD7EA2CFE504F0051D5D6 /* Renderer */ = {
-			isa = PBXGroup;
-			children = (
-				E7FFD7E92CFE504F0051D5D6 /* Renderer.h */,
-			);
-			name = Renderer;
-			path = ../../../FxPlug/FxStartPlugin/FxStartPlugin/Plugin/Renderer;
-			sourceTree = "<group>";
-		};
-		E7FFD7EC2CFE50570051D5D6 /* Renderer */ = {
-			isa = PBXGroup;
-			children = (
-				E7FFD7EB2CFE50570051D5D6 /* Renderer.h */,
-			);
-			path = Renderer;
 			sourceTree = "<group>";
 		};
 		E7FFD7EE2CFE50620051D5D6 /* Renderer */ = {
@@ -279,19 +261,9 @@
 		E7FFD7F02CFE506B0051D5D6 /* ParameterManager */ = {
 			isa = PBXGroup;
 			children = (
-				E7FFD7F32CFE509B0051D5D6 /* Calculations */,
 				E7FFD7EF2CFE506B0051D5D6 /* ParameterManager.h */,
 			);
 			path = ParameterManager;
-			sourceTree = "<group>";
-		};
-		E7FFD7F32CFE509B0051D5D6 /* Calculations */ = {
-			isa = PBXGroup;
-			children = (
-				E7FFD7F12CFE509B0051D5D6 /* Matrix.h */,
-				E7FFD7F22CFE509B0051D5D6 /* MatrixCache.h */,
-			);
-			path = Calculations;
 			sourceTree = "<group>";
 		};
 		E7FFD7F62CFE50A20051D5D6 /* Calculations */ = {
@@ -299,22 +271,9 @@
 			children = (
 				E7FFD7F42CFE50A20051D5D6 /* Matrix.h */,
 				E7FFD7F52CFE50A20051D5D6 /* MatrixCache.h */,
+				E7AE99872D12F87C0015523D /* Triangulation.h */,
 			);
 			path = Calculations;
-			sourceTree = "<group>";
-		};
-		E7FFD8032CFE50C20051D5D6 /* Fragment */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Fragment;
-			sourceTree = "<group>";
-		};
-		E7FFD80F2CFE50CC0051D5D6 /* Vertex */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Vertex;
 			sourceTree = "<group>";
 		};
 		E7FFD8152CFE50F10051D5D6 /* Device */ = {
@@ -410,16 +369,17 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E7FFD81B2CFE51B20051D5D6 /* VertexShaders.metal in Resources */,
-				E7FFD81C2CFE51B20051D5D6 /* BasicShader.metal in Resources */,
-				E7FFD81D2CFE51B20051D5D6 /* BlurShader.metal in Resources */,
-				E7FFD81E2CFE51B20051D5D6 /* DefaultShader.metal in Resources */,
-				E7FFD81F2CFE51B20051D5D6 /* EchoShader.metal in Resources */,
-				E7FFD8202CFE51B20051D5D6 /* EdgeDetectionShader.metal in Resources */,
-				E7FFD8212CFE51B20051D5D6 /* FishEyeShader.metal in Resources */,
-				E7FFD8232CFE51B20051D5D6 /* LensFlareShader.metal in Resources */,
-				E7FFD8242CFE51B20051D5D6 /* OilPaintingShader.metal in Resources */,
-				E7FFD8262CFE51B20051D5D6 /* PixelationShader.metal in Resources */,
+				E7AE9A262D1614080015523D /* VertexShaders.metal in Resources */,
+				E7AE9A272D1614080015523D /* BasicShader.metal in Resources */,
+				E7AE9A282D1614080015523D /* BlurShader.metal in Resources */,
+				E7AE9A292D1614080015523D /* DefaultShader.metal in Resources */,
+				E7AE9A2A2D1614080015523D /* EchoShader.metal in Resources */,
+				E7AE9A2B2D1614080015523D /* EdgeDetectionShader.metal in Resources */,
+				E7AE9A2C2D1614080015523D /* FishEyeShader.metal in Resources */,
+				E7AE9A2D2D1614080015523D /* LensFlareShader.metal in Resources */,
+				E7AE9A2E2D1614080015523D /* OilPaintingShader.metal in Resources */,
+				E7AE9A2F2D1614080015523D /* PixelationShader.metal in Resources */,
+				E7AE9A302D1614080015523D /* OSCShader.metal in Resources */,
 				E7FFD7C72CFE4EFE0051D5D6 /* en in Resources */,
 				E7FFD7CF2CFE4EFE0051D5D6 /* en in Resources */,
 				E7FFD7CC2CFE4EFE0051D5D6 /* Base in Resources */,
@@ -498,6 +458,7 @@
 				E7FFD8292CFE52480051D5D6 /* BlurShader.metal in Sources */,
 				E7FFD82A2CFE52480051D5D6 /* DefaultShader.metal in Sources */,
 				E7FFD82B2CFE52480051D5D6 /* EchoShader.metal in Sources */,
+				E7F291372D0C5E3D00D9FBF2 /* OSCShader.metal in Sources */,
 				E7FFD82C2CFE52480051D5D6 /* EdgeDetectionShader.metal in Sources */,
 				E7FFD82D2CFE52480051D5D6 /* FishEyeShader.metal in Sources */,
 				E7FFD82F2CFE52480051D5D6 /* LensFlareShader.metal in Sources */,
@@ -691,6 +652,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 14.4;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 				SWIFT_VERSION = 5;
 			};

@@ -12,7 +12,8 @@
 #import <string>
 #import <sstream>
 #import <MetalPerformanceShaders/MetalPerformanceShaders.h>
-
+#import "OSC.h"
+#import "Calculations/Triangulation.h"
 
 @interface FxDiplomaThesisPlugIn : NSObject <FxTileableEffect>
 @property (assign) id<PROAPIAccessing> apiManager;
@@ -28,6 +29,10 @@
 @property (assign) FxPoint2D lastCircleBlurPosition;
 @property (assign) FxPoint2D lastLensFlarePosition;
 @property (assign) TimingRenderTypes typeToRenderEcho;
+@property (assign) std::vector<FxPoint2D> oscBasicLastPositions;
+@property (assign) std::vector<FxPoint2D> oscBasicDefaultPositions;
 @property (assign) int numFrames;
+@property (assign) BOOL resetPositions;
 @property (assign) float frameDelay;
 @end
+

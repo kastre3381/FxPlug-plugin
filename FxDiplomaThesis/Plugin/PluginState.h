@@ -16,6 +16,19 @@ typedef struct
     float saturation;
     float temperature;
     int channelType;
+    int verticesNum;
+    CGPoint basicPosition1;
+    CGPoint basicPosition2;
+    CGPoint basicPosition3;
+    CGPoint basicPosition4;
+    CGPoint basicPosition5;
+    CGPoint basicPosition6;
+    CGPoint basicPosition7;
+    CGPoint basicPosition8;
+    CGPoint basicPosition9;
+    CGPoint basicPosition10;
+    CGPoint basicPosition11;
+    CGPoint basicPosition12;
     
     int gaussianBlurRadius;
     int kawaseBlurRadius;
@@ -40,8 +53,6 @@ typedef struct
     float lensFlareStrength;
     float lensFlareStretch;
     float lensFlareBrightness;
-    float lensFlareThreshold;
-    BOOL lensFlareCheapFlare;
     
     int pixelationSize;
     

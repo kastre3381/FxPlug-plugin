@@ -15,6 +15,7 @@ typedef enum PipelineTypes {
     PT_FishEye = 102,
     
     PT_Echo = 200,
+    PT_OSC = 321,
 } PipelineTypes;
 
 typedef enum KernelPipelineTypes {

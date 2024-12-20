@@ -16,6 +16,7 @@
 - (id<MTLRenderPipelineState>)pipelineStateWithRegistryID:(uint64_t)registryID
                                               pixelFormat:(MTLPixelFormat)pixFormat
                                              pipelineType:(PipelineTypes)pipType;
+- (id<MTLRenderPipelineState>)oscPipelineStateWithRegistryID:(uint64_t)registryID;
 - (id<MTLComputePipelineState>)computePipelineStateWithRegistryID:(uint64_t)registryID
                                               pixelFormat:(MTLPixelFormat)pixFormat
                                              pipelineType:(KernelPipelineTypes)pipType;

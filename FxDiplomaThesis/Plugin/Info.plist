@@ -73,6 +73,28 @@
 			<key>version</key>
 			<string>1.0</string>
 		</dict>
+		<dict>
+			<key>displayName</key>
+			<string>FxDiplomaThesis::OSC Name</string>
+			<key>protocolNames</key>
+			<array>
+				<string>FxOnScreenControl</string>
+			</array>
+			<key>className</key>
+			<string>OSC</string>
+			<key>supportedPlugins</key>
+			<array>
+				<string>1D1851C9-EF80-435D-ACD0-88B7611D4584</string>
+			</array>
+			<key>uuid</key>
+			<string>EA67DE9E-9E3C-41B1-9743-5B5265697CB3</string>
+			<key>version</key>
+			<string>1</string>
+			<key>group</key>
+			<string>2A62109C-3DBB-4389-B82A-3E5AD601B6CA</string>
+			<key>infoString</key>
+			<string>FxDiplomaThesis::OSC Description</string>
+		</dict>
 	</array>
 	<key>XPCService</key>
 	<dict>

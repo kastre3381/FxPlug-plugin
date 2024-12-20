@@ -128,6 +128,14 @@ public:
                             parameterFlags:flag];
     }
     
+    void addPushButton(NSString* name, ParameterFlags ID, SEL sel, FxParameterFlags flag)
+    {
+        [m_paramApi addPushButtonWithName:name
+                              parameterID:ID
+                                 selector:sel
+                           parameterFlags:flag];
+    }
+    
     void endSubGroup()
     {
         [m_paramApi endParameterSubGroup];
@@ -142,6 +150,12 @@ public:
     void show(ParameterFlags ID)
     {
         [m_settingsApi setParameterFlags:kFxParameterFlag_DEFAULT
+                             toParameter:ID];
+    }
+    
+    void disable(ParameterFlags ID)
+    {
+        [m_settingsApi setParameterFlags:kFxParameterFlag_DISABLED
                              toParameter:ID];
     }
     

@@ -10,6 +10,7 @@ typedef enum ParameterFlags
     PF_Saturation                     = 5,
     PF_Temperature                    = 6,
     PF_Hue                            = 7,
+    PF_ResetPoints                    = 8,
     
     
     PF_BlurTypes                      = 20,
@@ -38,8 +39,6 @@ typedef enum ParameterFlags
     PF_LensFlareShowImage             = 53,
     PF_LensFlareIntensityOfLight      = 54,
     PF_LensFlareStrength              = 55,
-    PF_LensFlareCheapFlare            = 56,
-    PF_LensFlareThreshold             = 57,
     PF_LensFlareStretch               = 58,
     PF_LensFlareBrightness            = 59,
     
@@ -56,6 +55,19 @@ typedef enum ParameterFlags
     PF_TimingEchoNumOfFramesTwoDir    = 84,
     PF_TimingEchoFrameDelay           = 85,
     
+    PF_BasicPosition1                 = 90,
+    PF_BasicPosition2                 = 91,
+    PF_BasicPosition3                 = 92,
+    PF_BasicPosition4                 = 93,
+    PF_BasicPosition5                 = 94,
+    PF_BasicPosition6                 = 95,
+    PF_BasicPosition7                 = 96,
+    PF_BasicPosition8                 = 97,
+    PF_BasicPosition9                 = 98,
+    PF_BasicPosition10                = 99,
+    PF_BasicPosition11                = 100,
+    PF_BasicPosition12                = 101,
+    PF_BasicOSCMenu                   = 102,
     
     PF_EffectTypes                    = 222,
     PF_ChannelTypes                   = 223,

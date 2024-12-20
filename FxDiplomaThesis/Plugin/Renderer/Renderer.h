@@ -14,7 +14,8 @@ concept ShaderBindingParameter = std::same_as<T, FragmentIndexBasic> ||
                                  std::same_as<T, FragmentIndexFishEye> ||
                                  std::same_as<T, FragmentIndexCircleBlur> ||
                                  std::same_as<T, FragmentIndexTimingEcho> ||
-                                 std::same_as<T, FragmentIndexLensFlare>;
+                                 std::same_as<T, FragmentIndexLensFlare> ||
+                                 std::same_as<T, FragmentIndexOSC>;
 
 
 class Renderer
@@ -79,38 +80,39 @@ public:
         [m_encoder setViewport:viewport];
     }
     
-    
-    void draw(MTLPrimitiveType type, int offset, int count) const
+    template<typename W>
+    void draw(MTLPrimitiveType type, int offset, W count) const
     {
         [m_encoder drawPrimitives:type
                       vertexStart:offset
                       vertexCount:count];
     }
     
-    template<typename T>
-    void setVertexBytes(const T* bytes, int size, VertexInputIndex index) const
+    template<typename T, typename W>
+    void setVertexBytes(const T* bytes, W size, VertexInputIndex index) const
     {
         [m_encoder setVertexBytes:bytes
                            length:size
                           atIndex:index];
     }
         
-    template<typename T, typename U>
-    void setFragmentBytes(const T* bytes, int size, U index) requires ShaderBindingParameter<U>
+    template<typename T, typename U, typename W>
+    void setFragmentBytes(const T* bytes, W size, U index) requires ShaderBindingParameter<U>
     {
         [m_encoder setFragmentBytes:bytes
                            length:size
                           atIndex:index];
     }
     
-    template<typename U>
-    void setFragmentBuffer(id<MTLBuffer> bytes, int offset, U index) requires ShaderBindingParameter<U>
+    template<typename U, typename W>
+    void setFragmentBuffer(id<MTLBuffer> bytes, W offset, U index) requires ShaderBindingParameter<U>
     {
         
         [m_encoder setFragmentBuffer:bytes
                               offset:offset
                              atIndex:index];
     }
+    
     
     
 private:

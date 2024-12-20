@@ -1,3 +1,6 @@
 /* Localized versions of Info.plist keys */
 
-"FxDiplomaThesis::FxPlug Name" = "FxDiplomaThesis";
+"FxDiplomaThesisPlugIn" = "FxDiplomaThesis";
+"FxDiplomaThesis::FxPlug Name"  = "FxDiplomaThesis";
+
+"FxDiplomaThesis::OSC Name"  = "OSC";

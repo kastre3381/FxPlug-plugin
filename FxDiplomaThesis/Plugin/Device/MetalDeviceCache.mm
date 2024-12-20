@@ -256,11 +256,27 @@ static MetalDeviceCache*   gDeviceCache    = nil;
         }
         
         
+        fragmentFunction = [[defaultLibrary newFunctionWithName:@"fragmentOSCShader"] autorelease];
         
+        MTLRenderPipelineDescriptor *oscPipelineStateDescriptor = [[[MTLRenderPipelineDescriptor alloc] init] autorelease];
+        oscPipelineStateDescriptor.label = @"Simple Pipeline";
+        oscPipelineStateDescriptor.vertexFunction = vertexFunction;
+        oscPipelineStateDescriptor.fragmentFunction = fragmentFunction;
+        oscPipelineStateDescriptor.colorAttachments[0].pixelFormat = MTLPixelFormatRGBA8Unorm;
+        
+        error = nil;
+        _pipelines[PT_OSC] = [_gpuDevice newRenderPipelineStateWithDescriptor:oscPipelineStateDescriptor
+                                                                              error:&error];
+    
+        
+        if (error != nil)
+        {
+            NSLog (@"Error generating negative pipeline state: %@", error);
+        }
         
 
-        
-        
+        id<MTLFunction> kernelFunction = [[defaultLibrary newFunctionWithName:@"computeGradientMax"] autorelease];
+        _kernelPipelines[KPT_EdgeDetectionCalculateMagnitude] =  [device newComputePipelineStateWithFunction:kernelFunction error:&error];
         
         if (_commandQueueCache != nil)
         {
@@ -273,8 +289,8 @@ static MetalDeviceCache*   gDeviceCache    = nil;
             || (_pipelines[PT_KawaseBlur] == nil) || (_pipelines[PT_BoxBlur] == nil)
             || (_pipelines[PT_Pixelation] == nil) || (_pipelines[PT_FishEye] == nil)
             || (_pipelines[PT_CircleBlur] == nil) || (_pipelines[PT_Echo] == nil)
-//            || (_kernelPipelines[KPT_EdgeDetectionCalculateMagnitude] == nil)
-            || (_pipelines[PT_LensFlare] == nil)
+            || (_kernelPipelines[KPT_EdgeDetectionCalculateMagnitude] == nil)
+            || (_pipelines[PT_LensFlare] == nil) || (_pipelines[PT_OSC] == nil)
             )
         {
             NSLog (@"tu nie dziala %@", error);
@@ -572,6 +588,19 @@ static MetalDeviceCache*   gDeviceCache    = nil;
     }
     [devices release];
     return result;
+}
+
+- (id<MTLRenderPipelineState>)oscPipelineStateWithRegistryID:(uint64_t)registryID
+{
+    for (MetalDeviceCacheItem* nextCacheItem in deviceCaches)
+    {
+        if (nextCacheItem.gpuDevice.registryID == registryID)
+        {
+            return nextCacheItem.pipelines[PT_OSC];
+        }
+    }
+    
+    return nil;
 }
 
 - (id<MTLComputePipelineState>)computePipelineStateWithRegistryID:(uint64_t)registryID

@@ -1,4 +1,5 @@
 /* Localized versions of Info.plist keys */
 
-"FxDiplomaThesis::FxPlug Description" = "A helpful description of\nwhat this plugin does.";
+"FxDiplomaThesis::FxPlug Description" = "Plugin created as part of\nBachelor'x theorem.";
 
+"FxDiplomaThesis::OSC Description" = "OSC created as part of\nBachelor'x theorem.";

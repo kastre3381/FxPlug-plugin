@@ -96,9 +96,8 @@ float4 fragmentLensFlareShader(RasterizerData in [[stage_in]],
                                constant float* intensityOfSource [[ buffer(FILF_IntensityOfLight )]],
                                constant float* flareStrength [[ buffer(FILF_FlareStrength )]],
                                constant float* anflareStretch [[ buffer(FILF_AnflareStretch )]],
-                               constant float* anflareThreshold [[ buffer(FILF_AnflareThreshold )]],
-                               constant float* anflareBrightness [[ buffer(FILF_AnflareBrightness )]],
-                               constant bool* cheapFlare [[ buffer(FILF_CheapFlare )]])
+                               constant float* anflareBrightness [[ buffer(FILF_AnflareBrightness )]]
+                               )
 {
     
     constexpr sampler textureSampler (mag_filter::linear,
@@ -116,16 +115,8 @@ float4 fragmentLensFlareShader(RasterizerData in [[stage_in]],
     
     float3 anflare = 0.0;
     
-    if(*cheapFlare)
-    {
-        anflare = pow(anflares(coords - pos, *intensityOfSource, *anflareStretch, *anflareBrightness), float3(4.0));
-        anflare += smoothstep(0.025, 1.0, anflare) * 10.0;
-        anflare += smoothstep(0.0, 1.0, anflare);
-    }
-    else
-    {
-        anflare = pow(anflares(coords-pos, *anflareThreshold, *intensityOfSource, *anflareStretch, *anflareBrightness), float3(4.0));
-    }
+    anflare = pow(anflares(coords-pos, 0.5, *intensityOfSource, *anflareStretch, *anflareBrightness), float3(4.0));
+
     
     sun += getSun(coords-pos) + (flare + anflare)* *sunColor*2.0;
     col += sun;

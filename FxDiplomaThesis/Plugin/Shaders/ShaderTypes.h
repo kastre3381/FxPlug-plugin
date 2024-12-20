@@ -1,6 +1,3 @@
-#ifndef ShaderTypes_h
-#define ShaderTypes_h
-
 #import <simd/simd.h>
 
 typedef enum VertexInputIndex {
@@ -118,6 +115,10 @@ typedef enum FragmentIndexLensFlare {
     FILF_AnflareThreshold = 9,
 } FragmentIndexLensFlare;
 
+typedef enum FragmentIndexOSC {
+    FIOSC_Color = 1,
+} FragmentIndexOSC;
+
 typedef enum KernelTextureIndex {
     KTI_Magnidute   = 0,
 } KernelTextureIndex;
@@ -131,6 +132,3 @@ typedef struct Vertex2D {
     vector_float2   position;
     vector_float2   textureCoordinate;
 } Vertex2D;
-
-
-#endif /* TileableRemoteBrightnessShaderTypes_h */

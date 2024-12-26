@@ -1,6 +1,4 @@
-#ifndef PipelineTypes_h
-#define PipelineTypes_h
-
+/// Enum defying the pipeline types for project
 typedef enum PipelineTypes {
     PT_None = 0,
     PT_Basic = 1,
@@ -21,5 +19,3 @@ typedef enum PipelineTypes {
 typedef enum KernelPipelineTypes {
     KPT_EdgeDetectionCalculateMagnitude = 0,
 } KernelPipelineTypes;
-
-#endif 

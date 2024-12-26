@@ -10,7 +10,7 @@
 template <typename T>
 concept isBuffer = std::same_as<T, id<MTLBuffer>>;
 
-/// Templated class used for caching the matrixes, in order to boost performace and speed of plugin
+
 template <typename T> class MatrixCache {
 public:
     MatrixCache() = default;
@@ -19,9 +19,13 @@ public:
     MatrixCache &operator=(MatrixCache &&) = delete;
     MatrixCache &operator=(const MatrixCache &) = delete;
 
+    /// Method used for checking, if map already contains the matrix for given radius
     bool contains(int key);
+    /// Method used in putting buffer into map
     void put(int key, T &buff) requires isBuffer<T>;
+    /// Method used in getting matrix for given radius
     T &get(int key);
+    /// Method used in creating buffer for specific radius
     void putMatrixBuffer(int key) requires isBuffer<T>;
 
 private:
@@ -46,7 +50,8 @@ void MatrixCache<T>::put(int key, T &buff)
 }
 
 /// Method used in getting matrix
-template <typename T> T &MatrixCache<T>::get(int key) {
+template <typename T> 
+T &MatrixCache<T>::get(int key) {
     return MatrixMap[key];
 }
 

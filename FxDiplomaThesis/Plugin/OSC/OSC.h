@@ -1,7 +1,7 @@
 #import <Foundation/Foundation.h>
 #import <FxPlug/FxPlugSDK.h>
 #import <Metal/Metal.h>
-#import "FxDiplomaThesisPlugIn.h"
+#import "../FxDiplomaThesisPlugIn.h"
 
 @interface OSC : NSObject<FxOnScreenControl_v4>
 @property (assign) id<PROAPIAccessing> apiManager;

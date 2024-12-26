@@ -1,5 +1,5 @@
+#import "Matrix.h"
 
-/// Method used for calculating gaussian matrix for given radius
 const std::vector<float> Matrix::getMatrixGaussian(int radius) {
 
     ///Initializing sigma and matrix
@@ -30,7 +30,6 @@ const std::vector<float> Matrix::getMatrixGaussian(int radius) {
 };
 
 
-///Method used for transorming FxMatrix44 to matrix_float4x4
 void Matrix::convertFxMatrix44ToMatrixFloat44(FxMatrix44 *fxMat, matrix_float4x4 *floatMatrix) {
     Matrix44Data *mat = [fxMat matrix];
     for (int i = 0; i < 4; i++) {

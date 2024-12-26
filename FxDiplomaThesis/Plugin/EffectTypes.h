@@ -9,7 +9,6 @@ typedef enum EffectTypes
     ET_SpecialEffect            = 3,
     ET_LensFlare                = 4,
     ET_Timing                   = 5,
-    ET_EdgeDetection            = 6,
     
     ET_GaussianBlur             = 200,
     ET_KawaseBlur               = 201,
@@ -63,7 +62,9 @@ typedef enum TimingRenderTypes
     TRT_Center                   = 3,
 } TimingRenderTypes;
 
-typedef enum ActivePart 
+
+
+typedef enum ActivePart
 {
     AP_Null = 0,
     AP_CircleBlur = 1,
@@ -83,5 +84,8 @@ typedef enum ActivePart
     AP_Basic12 = 15,
     AP_BasicOSC = 16,
 }ActivePart;
+
+
+
 
 #endif /* EffectTypes_h */

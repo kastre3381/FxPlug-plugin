@@ -71,19 +71,20 @@ typedef enum ParameterFlags
     
     PF_EffectTypes                    = 222,
     PF_ChannelTypes                   = 223,
-    PF_BasicGroup                     = 500,
-    PF_BlurGroup                      = 501,
     PF_SpecialEffectsTypes            = 502,
-    PF_OilPaintingGroup               = 503,
-    PF_OSCGroup                       = 504,
-    PF_SpecialEffectGroup             = 505,
-    PF_LensFlareGroup                 = 506,
-    PF_PixelizationGroup              = 508,
-    PF_RGB                            = 509,
-    PF_HSL                            = 510,
-    PF_FishEyeGroup                   = 511,
-    PF_CircleBlurGroup                = 512,
-    PF_TimingGroup                    = 513,
+    
+    PF_BasicGroup                     = 600,
+    PF_BlurGroup                      = 601,
+    PF_OilPaintingGroup               = 603,
+    PF_OSCGroup                       = 604,
+    PF_SpecialEffectGroup             = 605,
+    PF_LensFlareGroup                 = 606,
+    PF_PixelizationGroup              = 608,
+    PF_RGB                            = 609,
+    PF_HSL                            = 610,
+    PF_FishEyeGroup                   = 611,
+    PF_CircleBlurGroup                = 612,
+    PF_TimingGroup                    = 613,
 } ParameterFlags;
 
 #endif /* ParameterFlags_h */

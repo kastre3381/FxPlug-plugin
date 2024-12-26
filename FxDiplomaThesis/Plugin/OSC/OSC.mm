@@ -3,7 +3,7 @@
 @implementation OSC {
     NSLock *lastPositionLock;
 }
-
+/// Initializing with api manager
 - (instancetype)initWithAPIManager:(id<PROAPIAccessing>)newAPIManager {
     self = [super init];
 
@@ -22,38 +22,44 @@
     return self;
 }
 
+/// Deallocationg
 - (void)dealloc {
     [lastPositionLock release];
     [super dealloc];
 }
 
+/// Method used to get point using angle and normalized radius
 - (void)canvasPoint:(CGPoint *)canvasPt
      forCircleCenter:(CGPoint)cc
                angle:(double)radians
     normalizedRadius:(CGPoint)normalizedRadius
           canvasSize:(NSSize)canvasSize
               oscAPI:(id<FxOnScreenControlAPI_v4>)oscAPI {
-    CGPoint objectPt;
-    objectPt.x = cc.x + cos(radians) * normalizedRadius.x;
-    objectPt.y = cc.y + sin(radians) * normalizedRadius.y;
+    CGPoint pt;
+    /// Calculating point's x and y coordinates
+    pt.x = cc.x + cos(radians) * normalizedRadius.x;
+    pt.y = cc.y + sin(radians) * normalizedRadius.y;
 
+    /// Transformin position from object space to canvas space
     [oscAPI convertPointFromSpace:kFxDrawingCoordinates_OBJECT
-                            fromX:objectPt.x
-                            fromY:objectPt.y
+                            fromX:pt.x
+                            fromY:pt.y
                           toSpace:kFxDrawingCoordinates_CANVAS
                               toX:&canvasPt->x
                               toY:&canvasPt->y];
 
+    /// Flipping on y-axis and assigning values
     canvasPt->y = canvasSize.height - canvasPt->y;
     canvasPt->x -= canvasSize.width / 2.0;
     canvasPt->y -= canvasSize.height / 2.0;
 }
 
-- (void)drawCircleWithImageSize:(NSSize)canvasSize
+
+- (void)drawCircleWithCanvasSize:(NSSize)canvasSize
                        renderer:(Renderer &)renderer
                      activePart:(NSInteger)activePart
                      effectType:(EffectTypes)effectType
-                         atTime:(CMTime)time {
+                         time:(CMTime)time {
     double destImageWidth = canvasSize.width;
     double destImageHeight = canvasSize.height;
 
@@ -428,36 +434,36 @@
     canvasCC.x -= destImageWidth / 2.0;
     canvasCC.y -= destImageHeight / 2.0;
 
-    const size_t kNumAngles = 360;
-    const double kDegreesPerIteration = 360.0 / kNumAngles;
-    const size_t kNumCircleVertices = 3 * kNumAngles;
+    const size_t anglesNum = 360;
+    const double degreesPerIteration = 360.0 / anglesNum;
+    const size_t circleVerticesNum = 3 * anglesNum;
 
-    Vertex2D circleVertices[kNumCircleVertices];
+    Vertex2D circleVertices[circleVerticesNum];
     simd_float2 zeroZero = {0.0, 0.0};
     CGPoint canvasPt;
-    for (int i = 0; i < kNumAngles; ++i) {
+    for (int i = 0; i < anglesNum; ++i) {
         circleVertices[i * 3 + 0].position.x = canvasCC.x;
         circleVertices[i * 3 + 0].position.y = canvasCC.y;
         circleVertices[i * 3 + 0].textureCoordinate = zeroZero;
 
-        double radians = (double)(i * kDegreesPerIteration) * M_PI / 180.0;
+        double radians = (double)(i * degreesPerIteration) * M_PI / 180.0;
         [self canvasPoint:&canvasPt forCircleCenter:cc angle:radians normalizedRadius:normalizedRadius canvasSize:canvasSize oscAPI:oscAPI];
         circleVertices[i * 3 + 1].position.x = canvasPt.x;
         circleVertices[i * 3 + 1].position.y = canvasPt.y;
         circleVertices[i * 3 + 1].textureCoordinate = zeroZero;
 
-        radians = (double)((i + 1) * kDegreesPerIteration) * M_PI / 180.0;
+        radians = (double)((i + 1) * degreesPerIteration) * M_PI / 180.0;
         [self canvasPoint:&canvasPt forCircleCenter:cc angle:radians normalizedRadius:normalizedRadius canvasSize:canvasSize oscAPI:oscAPI];
         circleVertices[i * 3 + 2].position.x = canvasPt.x;
         circleVertices[i * 3 + 2].position.y = canvasPt.y;
         circleVertices[i * 3 + 2].textureCoordinate = zeroZero;
     }
 
-    Vertex2D outlineVertices[kNumAngles + 1];
-    for (int i = 0; i < kNumAngles; ++i) {
+    Vertex2D outlineVertices[anglesNum + 1];
+    for (int i = 0; i < anglesNum; ++i) {
         outlineVertices[i] = circleVertices[i * 3 + 1];
     }
-    outlineVertices[kNumAngles] = outlineVertices[0];
+    outlineVertices[anglesNum] = outlineVertices[0];
 
     renderer.setVertexBytes(&viewportSize, sizeof(viewportSize), VI_ViewportSize);
     renderer.setVertexBytes(circleVertices, sizeof(circleVertices), VI_Vertices);
@@ -467,14 +473,16 @@
     } else {
         renderer.setFragmentBytes(&_unselectedColorCircleBlur, sizeof(_unselectedColorCircleBlur), FIOSC_Color);
     }
-    renderer.draw(MTLPrimitiveTypeTriangle, 0, kNumCircleVertices);
+    renderer.draw(MTLPrimitiveTypeTriangle, 0, circleVerticesNum);
 
     renderer.setVertexBytes(&viewportSize, sizeof(viewportSize), VI_ViewportSize);
     renderer.setVertexBytes(outlineVertices, sizeof(outlineVertices), VI_Vertices);
     renderer.setFragmentBytes(&_outlineColorCircleBlur, sizeof(_outlineColorCircleBlur), FIOSC_Color);
-    renderer.draw(MTLPrimitiveTypeLineStrip, 0, kNumAngles);
+    renderer.draw(MTLPrimitiveTypeLineStrip, 0, anglesNum);
 }
 
+
+/// Method used in drawing the circles in vertices
 - (void)drawPolygonCircles:(ParameterFlags)centerFlag
                   renderer:(Renderer &)renderer
             destImageWidth:(double)destImageWidth
@@ -489,451 +497,156 @@
     int num = 0;
     [paramAPI getIntValue:&num fromParameter:PF_BasicOSCMenu atTime:time];
 
-    if (num >= 1) {
-        if (activePart == AP_Basic1)
-            [self drawCircle:PF_BasicPosition1
-                       renderer:renderer
-                 destImageWidth:destImageWidth
-                destImageHeight:destImageHeight
-                    imageBounds:imageBounds
-                         oscApi:oscAPI
-                       paramAPI:paramAPI
-                     canvasSize:canvasSize
-                         active:TRUE
-                   viewportSize:viewportSize
-                           time:time];
-        else
-            [self drawCircle:PF_BasicPosition1
-                       renderer:renderer
-                 destImageWidth:destImageWidth
-                destImageHeight:destImageHeight
-                    imageBounds:imageBounds
-                         oscApi:oscAPI
-                       paramAPI:paramAPI
-                     canvasSize:canvasSize
-                         active:FALSE
-                   viewportSize:viewportSize
-                           time:time];
-    }
-
-    if (num >= 1) {
-        if (activePart == AP_Basic2)
-            [self drawCircle:PF_BasicPosition2
-                       renderer:renderer
-                 destImageWidth:destImageWidth
-                destImageHeight:destImageHeight
-                    imageBounds:imageBounds
-                         oscApi:oscAPI
-                       paramAPI:paramAPI
-                     canvasSize:canvasSize
-                         active:TRUE
-                   viewportSize:viewportSize
-                           time:time];
-        else
-            [self drawCircle:PF_BasicPosition2
-                       renderer:renderer
-                 destImageWidth:destImageWidth
-                destImageHeight:destImageHeight
-                    imageBounds:imageBounds
-                         oscApi:oscAPI
-                       paramAPI:paramAPI
-                     canvasSize:canvasSize
-                         active:FALSE
-                   viewportSize:viewportSize
-                           time:time];
-    }
-
-    if (num >= 1) {
-        if (activePart == AP_Basic3)
-            [self drawCircle:PF_BasicPosition3
-                       renderer:renderer
-                 destImageWidth:destImageWidth
-                destImageHeight:destImageHeight
-                    imageBounds:imageBounds
-                         oscApi:oscAPI
-                       paramAPI:paramAPI
-                     canvasSize:canvasSize
-                         active:TRUE
-                   viewportSize:viewportSize
-                           time:time];
-        else
-            [self drawCircle:PF_BasicPosition3
-                       renderer:renderer
-                 destImageWidth:destImageWidth
-                destImageHeight:destImageHeight
-                    imageBounds:imageBounds
-                         oscApi:oscAPI
-                       paramAPI:paramAPI
-                     canvasSize:canvasSize
-                         active:FALSE
-                   viewportSize:viewportSize
-                           time:time];
-    }
-
-    if (num >= 2) {
-        if (activePart == AP_Basic4)
-            [self drawCircle:PF_BasicPosition4
-                       renderer:renderer
-                 destImageWidth:destImageWidth
-                destImageHeight:destImageHeight
-                    imageBounds:imageBounds
-                         oscApi:oscAPI
-                       paramAPI:paramAPI
-                     canvasSize:canvasSize
-                         active:TRUE
-                   viewportSize:viewportSize
-                           time:time];
-        else
-            [self drawCircle:PF_BasicPosition4
-                       renderer:renderer
-                 destImageWidth:destImageWidth
-                destImageHeight:destImageHeight
-                    imageBounds:imageBounds
-                         oscApi:oscAPI
-                       paramAPI:paramAPI
-                     canvasSize:canvasSize
-                         active:FALSE
-                   viewportSize:viewportSize
-                           time:time];
-    }
-
-    if (num >= 3) {
-        if (activePart == AP_Basic5)
-            [self drawCircle:PF_BasicPosition5
-                       renderer:renderer
-                 destImageWidth:destImageWidth
-                destImageHeight:destImageHeight
-                    imageBounds:imageBounds
-                         oscApi:oscAPI
-                       paramAPI:paramAPI
-                     canvasSize:canvasSize
-                         active:TRUE
-                   viewportSize:viewportSize
-                           time:time];
-        else
-            [self drawCircle:PF_BasicPosition5
-                       renderer:renderer
-                 destImageWidth:destImageWidth
-                destImageHeight:destImageHeight
-                    imageBounds:imageBounds
-                         oscApi:oscAPI
-                       paramAPI:paramAPI
-                     canvasSize:canvasSize
-                         active:FALSE
-                   viewportSize:viewportSize
-                           time:time];
-    }
-
-    if (num >= 4) {
-        if (activePart == AP_Basic6)
-            [self drawCircle:PF_BasicPosition6
-                       renderer:renderer
-                 destImageWidth:destImageWidth
-                destImageHeight:destImageHeight
-                    imageBounds:imageBounds
-                         oscApi:oscAPI
-                       paramAPI:paramAPI
-                     canvasSize:canvasSize
-                         active:TRUE
-                   viewportSize:viewportSize
-                           time:time];
-        else
-            [self drawCircle:PF_BasicPosition6
-                       renderer:renderer
-                 destImageWidth:destImageWidth
-                destImageHeight:destImageHeight
-                    imageBounds:imageBounds
-                         oscApi:oscAPI
-                       paramAPI:paramAPI
-                     canvasSize:canvasSize
-                         active:FALSE
-                   viewportSize:viewportSize
-                           time:time];
-    }
-
-    if (num >= 5) {
-        if (activePart == AP_Basic7)
-            [self drawCircle:PF_BasicPosition7
-                       renderer:renderer
-                 destImageWidth:destImageWidth
-                destImageHeight:destImageHeight
-                    imageBounds:imageBounds
-                         oscApi:oscAPI
-                       paramAPI:paramAPI
-                     canvasSize:canvasSize
-                         active:TRUE
-                   viewportSize:viewportSize
-                           time:time];
-        else
-            [self drawCircle:PF_BasicPosition7
-                       renderer:renderer
-                 destImageWidth:destImageWidth
-                destImageHeight:destImageHeight
-                    imageBounds:imageBounds
-                         oscApi:oscAPI
-                       paramAPI:paramAPI
-                     canvasSize:canvasSize
-                         active:FALSE
-                   viewportSize:viewportSize
-                           time:time];
-    }
-
-    if (num >= 6) {
-        if (activePart == AP_Basic8)
-            [self drawCircle:PF_BasicPosition8
-                       renderer:renderer
-                 destImageWidth:destImageWidth
-                destImageHeight:destImageHeight
-                    imageBounds:imageBounds
-                         oscApi:oscAPI
-                       paramAPI:paramAPI
-                     canvasSize:canvasSize
-                         active:TRUE
-                   viewportSize:viewportSize
-                           time:time];
-        else
-            [self drawCircle:PF_BasicPosition8
-                       renderer:renderer
-                 destImageWidth:destImageWidth
-                destImageHeight:destImageHeight
-                    imageBounds:imageBounds
-                         oscApi:oscAPI
-                       paramAPI:paramAPI
-                     canvasSize:canvasSize
-                         active:FALSE
-                   viewportSize:viewportSize
-                           time:time];
-    }
-
-    if (num >= 7) {
-        if (activePart == AP_Basic9)
-            [self drawCircle:PF_BasicPosition9
-                       renderer:renderer
-                 destImageWidth:destImageWidth
-                destImageHeight:destImageHeight
-                    imageBounds:imageBounds
-                         oscApi:oscAPI
-                       paramAPI:paramAPI
-                     canvasSize:canvasSize
-                         active:TRUE
-                   viewportSize:viewportSize
-                           time:time];
-        else
-            [self drawCircle:PF_BasicPosition9
-                       renderer:renderer
-                 destImageWidth:destImageWidth
-                destImageHeight:destImageHeight
-                    imageBounds:imageBounds
-                         oscApi:oscAPI
-                       paramAPI:paramAPI
-                     canvasSize:canvasSize
-                         active:FALSE
-                   viewportSize:viewportSize
-                           time:time];
-    }
-
-    if (num >= 8) {
-        if (activePart == AP_Basic10)
-            [self drawCircle:PF_BasicPosition10
-                       renderer:renderer
-                 destImageWidth:destImageWidth
-                destImageHeight:destImageHeight
-                    imageBounds:imageBounds
-                         oscApi:oscAPI
-                       paramAPI:paramAPI
-                     canvasSize:canvasSize
-                         active:TRUE
-                   viewportSize:viewportSize
-                           time:time];
-        else
-            [self drawCircle:PF_BasicPosition10
-                       renderer:renderer
-                 destImageWidth:destImageWidth
-                destImageHeight:destImageHeight
-                    imageBounds:imageBounds
-                         oscApi:oscAPI
-                       paramAPI:paramAPI
-                     canvasSize:canvasSize
-                         active:FALSE
-                   viewportSize:viewportSize
-                           time:time];
-    }
-
-    if (num >= 9) {
-        if (activePart == AP_Basic11)
-            [self drawCircle:PF_BasicPosition11
-                       renderer:renderer
-                 destImageWidth:destImageWidth
-                destImageHeight:destImageHeight
-                    imageBounds:imageBounds
-                         oscApi:oscAPI
-                       paramAPI:paramAPI
-                     canvasSize:canvasSize
-                         active:TRUE
-                   viewportSize:viewportSize
-                           time:time];
-        else
-            [self drawCircle:PF_BasicPosition11
-                       renderer:renderer
-                 destImageWidth:destImageWidth
-                destImageHeight:destImageHeight
-                    imageBounds:imageBounds
-                         oscApi:oscAPI
-                       paramAPI:paramAPI
-                     canvasSize:canvasSize
-                         active:FALSE
-                   viewportSize:viewportSize
-                           time:time];
-    }
-
-    if (num >= 10) {
-        if (activePart == AP_Basic12)
-            [self drawCircle:PF_BasicPosition12
-                       renderer:renderer
-                 destImageWidth:destImageWidth
-                destImageHeight:destImageHeight
-                    imageBounds:imageBounds
-                         oscApi:oscAPI
-                       paramAPI:paramAPI
-                     canvasSize:canvasSize
-                         active:TRUE
-                   viewportSize:viewportSize
-                           time:time];
-        else
-            [self drawCircle:PF_BasicPosition12
-                       renderer:renderer
-                 destImageWidth:destImageWidth
-                destImageHeight:destImageHeight
-                    imageBounds:imageBounds
-                         oscApi:oscAPI
-                       paramAPI:paramAPI
-                     canvasSize:canvasSize
-                         active:FALSE
-                   viewportSize:viewportSize
-                           time:time];
+    /// Drawing polygon based on activePart value for each vertex
+    if (num >= 1)
+    {
+        BOOL isActive = (activePart == AP_Basic1);
+        [self drawCircle:PF_BasicPosition1
+                renderer:renderer
+          destImageWidth:destImageWidth
+         destImageHeight:destImageHeight
+             imageBounds:imageBounds
+                  oscApi:oscAPI
+                paramAPI:paramAPI
+              canvasSize:canvasSize
+                  active:isActive
+            viewportSize:viewportSize
+                    time:time];
+        
+        isActive = (activePart == AP_Basic2);
+        [self drawCircle:PF_BasicPosition2
+                renderer:renderer
+          destImageWidth:destImageWidth
+         destImageHeight:destImageHeight
+             imageBounds:imageBounds
+                  oscApi:oscAPI
+                paramAPI:paramAPI
+              canvasSize:canvasSize
+                  active:isActive
+            viewportSize:viewportSize
+                    time:time];
+        
+        isActive = (activePart == AP_Basic3);
+        [self drawCircle:PF_BasicPosition3
+                renderer:renderer
+          destImageWidth:destImageWidth
+         destImageHeight:destImageHeight
+             imageBounds:imageBounds
+                  oscApi:oscAPI
+                paramAPI:paramAPI
+              canvasSize:canvasSize
+                  active:isActive
+            viewportSize:viewportSize
+                    time:time];
+        
+        for(int i = 3; i < 12; i++)
+        {
+            if (num >= i-1)
+            {
+                isActive = (activePart == (AP_Basic1+i));
+                [self drawCircle:static_cast<ParameterFlags>(PF_BasicPosition1 + i)
+                           renderer:renderer
+                     destImageWidth:destImageWidth
+                    destImageHeight:destImageHeight
+                        imageBounds:imageBounds
+                             oscApi:oscAPI
+                           paramAPI:paramAPI
+                         canvasSize:canvasSize
+                             active:isActive
+                       viewportSize:viewportSize
+                               time:time];
+            }
+        }
     }
 }
 
-- (void)drawPolygonWithImageSize:(NSSize)canvasSize renderer:(Renderer &)renderer activePart:(NSInteger)activePart atTime:(CMTime)time {
+- (void)drawPolygonWithCanvasSize:(NSSize)canvasSize renderer:(Renderer &)renderer activePart:(NSInteger)activePart time:(CMTime)time {
+    /// Getting image width and height
     double destImageWidth = canvasSize.width;
     double destImageHeight = canvasSize.height;
 
-    std::cout << "Width " << destImageWidth << ", height " << destImageHeight << std::endl;
-
+    /// Initialazing parameter manager and osc api
     id<FxParameterRetrievalAPI_v6> paramAPI = [_apiManager apiForProtocol:@protocol(FxParameterRetrievalAPI_v6)];
     id<FxOnScreenControlAPI_v4> oscAPI = [_apiManager apiForProtocol:@protocol(FxOnScreenControlAPI_v4)];
+    ParameterManager paramManager;
+    paramManager.setRetrievalApi(paramAPI);
+    
+    /// Calculating image bounds
     NSRect imageBounds = [oscAPI inputBounds];
     _size = NSMakeSize(imageBounds.size.width, imageBounds.size.height);
 
-    int vertices = 0;
-    [paramAPI getIntValue:&vertices fromParameter:PF_BasicOSCMenu atTime:time];
-    if (vertices == 0)
+    /// Getting number of vertices to render
+    int numVertices = 0;
+    paramManager.getIntValue(&numVertices, PF_BasicOSCMenu, time);
+    if (numVertices == 0)
         return;
-    else
-        vertices += 2;
-
+    
+    numVertices += 2;
     simd_float2 zeroZero = {0.0, 0.0};
 
-    Vertex2D outlineVertices[vertices + 1];
-    for (int i = 0; i < vertices; ++i) {
+    /// Calculating outline vertices (the ones that make border around polygon)
+    Vertex2D outlineVertices[numVertices + 1];
+    for (int i = 0; i < numVertices; ++i) {
         CGPoint pos = {0.0, 0.0};
-        [paramAPI getXValue:&pos.x YValue:&pos.y fromParameter:PF_BasicPosition1 + i atTime:time];
+        paramManager.getPointValues(&pos.x, &pos.y, static_cast<ParameterFlags>(PF_BasicPosition1 + i), time);
         auto normalizedPos = [self getPointInCanvas:pos oscApi:oscAPI destImageWidth:destImageWidth destImageHeight:destImageHeight];
         outlineVertices[i].position.x = normalizedPos.x;
         outlineVertices[i].position.y = normalizedPos.y;
         outlineVertices[i].textureCoordinate = zeroZero;
     }
-    outlineVertices[vertices] = outlineVertices[0];
+    outlineVertices[numVertices] = outlineVertices[0];
 
     simd_uint2 viewportSize = {(unsigned int)(destImageWidth), (unsigned int)(destImageHeight)};
-
     std::vector<CGPoint> positions;
 
-    int numVertices;
-    [paramAPI getIntValue:&numVertices fromParameter:PF_BasicOSCMenu atTime:time];
+    /// Preparing data for triangulation
+    CGPoint pos1, pos2, pos3;
+    paramManager.getPointValues(&pos1.x, &pos1.y, PF_BasicPosition1, time);
+    paramManager.getPointValues(&pos2.x, &pos2.y, PF_BasicPosition2, time);
+    paramManager.getPointValues(&pos3.x, &pos3.y, PF_BasicPosition3, time);
 
-    if (numVertices > 0) {
-        numVertices += 2;
-        CGPoint pos1, pos2, pos3;
-        [paramAPI getXValue:&pos1.x YValue:&pos1.y fromParameter:PF_BasicPosition1 atTime:time];
-        [paramAPI getXValue:&pos2.x YValue:&pos2.y fromParameter:PF_BasicPosition2 atTime:time];
-        [paramAPI getXValue:&pos3.x YValue:&pos3.y fromParameter:PF_BasicPosition3 atTime:time];
+    positions.push_back(pos1);
+    positions.push_back(pos2);
+    positions.push_back(pos3);
 
-        positions.push_back(pos1);
-        positions.push_back(pos2);
-        positions.push_back(pos3);
-
-        if (numVertices >= 4) {
+    for(int i = 4; i <= 12; i++)
+    {
+        if (numVertices >= i) {
             CGPoint pt;
-            [paramAPI getXValue:&pt.x YValue:&pt.y fromParameter:PF_BasicPosition4 atTime:time];
+            [paramAPI getXValue:&pt.x YValue:&pt.y fromParameter:static_cast<ParameterFlags>(PF_BasicPosition1 + i - 1) atTime:time];
             positions.push_back(pt);
         }
-        if (numVertices >= 5) {
-            CGPoint pt;
-            [paramAPI getXValue:&pt.x YValue:&pt.y fromParameter:PF_BasicPosition5 atTime:time];
-            positions.push_back(pt);
-        }
-        if (numVertices >= 6) {
-            CGPoint pt;
-            [paramAPI getXValue:&pt.x YValue:&pt.y fromParameter:PF_BasicPosition6 atTime:time];
-            positions.push_back(pt);
-        }
-        if (numVertices >= 7) {
-            CGPoint pt;
-            [paramAPI getXValue:&pt.x YValue:&pt.y fromParameter:PF_BasicPosition7 atTime:time];
-            positions.push_back(pt);
-        }
-        if (numVertices >= 8) {
-            CGPoint pt;
-            [paramAPI getXValue:&pt.x YValue:&pt.y fromParameter:PF_BasicPosition8 atTime:time];
-            positions.push_back(pt);
-        }
-        if (numVertices >= 9) {
-            CGPoint pt;
-            [paramAPI getXValue:&pt.x YValue:&pt.y fromParameter:PF_BasicPosition9 atTime:time];
-            positions.push_back(pt);
-        }
-        if (numVertices >= 10) {
-            CGPoint pt;
-            [paramAPI getXValue:&pt.x YValue:&pt.y fromParameter:PF_BasicPosition10 atTime:time];
-            positions.push_back(pt);
-        }
-        if (numVertices >= 11) {
-            CGPoint pt;
-            [paramAPI getXValue:&pt.x YValue:&pt.y fromParameter:PF_BasicPosition11 atTime:time];
-            positions.push_back(pt);
-        }
-        if (numVertices >= 12) {
-            CGPoint pt;
-            [paramAPI getXValue:&pt.x YValue:&pt.y fromParameter:PF_BasicPosition12 atTime:time];
-            positions.push_back(pt);
-        }
-
-        auto triangles = Triangulation::getTriangulation(positions);
-
-        Vertex2D vertices[triangles.size()];
-
-        for (int i = 0; i < triangles.size(); i++) {
-            triangles[i] = [self getPointInCanvas:triangles[i] oscApi:oscAPI destImageWidth:destImageWidth destImageHeight:destImageHeight];
-            vertices[i].position.x = triangles[i].x;
-            vertices[i].position.y = triangles[i].y;
-            vertices[i].textureCoordinate = zeroZero;
-        }
-
-        renderer.setVertexBytes(vertices, sizeof(vertices), VI_Vertices);
-        renderer.setVertexBytes(&viewportSize, sizeof(viewportSize), VI_ViewportSize);
-        if (activePart == AP_BasicOSC)
-            renderer.setFragmentBytes(&_selectedColorCircleBlur, sizeof(_selectedColorCircleBlur), FIOSC_Color);
-        else
-            renderer.setFragmentBytes(&_unselectedColorCircleBlur, sizeof(_unselectedColorCircleBlur), FIOSC_Color);
-        renderer.draw(MTLPrimitiveTypeTriangle, 0, triangles.size());
     }
+    
+    /// Calculating triangulation
+    auto triangles = Triangulation::getTriangulation(positions);
 
+    Vertex2D vertices[triangles.size()];
+    /// Filling up data
+    for (int i = 0; i < triangles.size(); i++) {
+        triangles[i] = [self getPointInCanvas:triangles[i] oscApi:oscAPI destImageWidth:destImageWidth destImageHeight:destImageHeight];
+        vertices[i].position.x = triangles[i].x;
+        vertices[i].position.y = triangles[i].y;
+        vertices[i].textureCoordinate = zeroZero;
+    }
+    
+    /// Setting vertex and fragment bytes
+    renderer.setVertexBytes(vertices, sizeof(vertices), VI_Vertices);
+    renderer.setVertexBytes(&viewportSize, sizeof(viewportSize), VI_ViewportSize);
+    if (activePart == AP_BasicOSC)
+        renderer.setFragmentBytes(&_selectedColorCircleBlur, sizeof(_selectedColorCircleBlur), FIOSC_Color);
+    else
+        renderer.setFragmentBytes(&_unselectedColorCircleBlur, sizeof(_unselectedColorCircleBlur), FIOSC_Color);
+    /// Drawing polygon
+    renderer.draw(MTLPrimitiveTypeTriangle, 0, triangles.size());
+
+    /// Drawing outline
     renderer.setVertexBytes(outlineVertices, sizeof(outlineVertices), VI_Vertices);
     renderer.setVertexBytes(&viewportSize, sizeof(viewportSize), VI_ViewportSize);
     renderer.setFragmentBytes(&_outlineColorCircleBlur, sizeof(_outlineColorCircleBlur), FIOSC_Color);
-    renderer.draw(MTLPrimitiveTypeLineStrip, 0, vertices + 1);
+    renderer.draw(MTLPrimitiveTypeLineStrip, 0, numVertices + 1);
 
+    /// Drawing circles located in every vertex
     [self drawPolygonCircles:PF_BasicPosition1
                     renderer:renderer
               destImageWidth:destImageWidth
@@ -947,81 +660,88 @@
                   activePart:activePart];
 }
 
-- (void)drawOSC:(FxImageTile *)destinationImage renderer:(Renderer &)renderer activePart:(NSInteger)activePart atTime:(CMTime)time {
-    float destImageWidth = destinationImage.imagePixelBounds.right - destinationImage.imagePixelBounds.left;
-    float destImageHeight = destinationImage.imagePixelBounds.top - destinationImage.imagePixelBounds.bottom;
-
-    float ioSurfaceHeight = [destinationImage.ioSurface height];
-    MTLViewport viewport = {0, ioSurfaceHeight - destImageHeight, destImageWidth, destImageHeight, -1.0, 1.0};
-    renderer.setViewport(viewport);
-
-    id<FxParameterRetrievalAPI_v6> paramAPI = [_apiManager apiForProtocol:@protocol(FxParameterRetrievalAPI_v6)];
-    int et;
-
-    [paramAPI getIntValue:&et fromParameter:PF_EffectTypes atTime:time];
-
-    if (et == ET_Blur) {
-        [self drawCircleWithImageSize:NSMakeSize(destImageWidth, destImageHeight)
-                             renderer:renderer
-                           activePart:activePart
-                           effectType:ET_CircleBlur
-                               atTime:time];
-    }
-
-    else if (et == ET_SpecialEffect) {
-        [self drawCircleWithImageSize:NSMakeSize(destImageWidth, destImageHeight)
-                             renderer:renderer
-                           activePart:activePart
-                           effectType:ET_FishEye
-                               atTime:time];
-    }
-
-    else if (et == ET_LensFlare) {
-        [self drawCircleWithImageSize:NSMakeSize(destImageWidth, destImageHeight)
-                             renderer:renderer
-                           activePart:activePart
-                           effectType:ET_LensFlare
-                               atTime:time];
-    }
-
-    else if (et == ET_Basic) {
-        [self drawPolygonWithImageSize:NSMakeSize(destImageWidth, destImageHeight) renderer:renderer activePart:activePart atTime:time];
-    }
-}
 
 - (void)drawOSCWithWidth:(NSInteger)width
                   height:(NSInteger)height
               activePart:(NSInteger)activePart
         destinationImage:(FxImageTile *)destinationImage
                   atTime:(CMTime)time {
+    /// Initializing device for caching pipelines
     MetalDeviceCache *deviceCache = [MetalDeviceCache deviceCache];
+    /// Getting device
     id<MTLDevice> gpuDevice = [deviceCache deviceWithRegistryID:destinationImage.deviceRegistryID];
+    /// Initializing command queue
     id<MTLCommandQueue> commandQueue = [deviceCache commandQueueWithRegistryID:destinationImage.deviceRegistryID
                                                                    pixelFormat:MTLPixelFormatRGBA16Float];
+    /// Initializing command buffer and adding it to queue
     id<MTLCommandBuffer> commandBuffer = [commandQueue commandBuffer];
     [commandBuffer enqueue];
 
+    /// Getting output texture and setting it in render color attachment desctiptor
     id<MTLTexture> outputTexture = [destinationImage metalTextureForDevice:gpuDevice];
     MTLRenderPassColorAttachmentDescriptor *colorAttachmentDescriptor = [[MTLRenderPassColorAttachmentDescriptor alloc] init];
     colorAttachmentDescriptor.texture = outputTexture;
     colorAttachmentDescriptor.clearColor = MTLClearColorMake(0.0, 0.0, 0.0, 0.0);
     colorAttachmentDescriptor.loadAction = MTLLoadActionClear;
-
+    
+    /// Initializing render pass descriptor
     MTLRenderPassDescriptor *renderPassDescriptor = [MTLRenderPassDescriptor renderPassDescriptor];
     renderPassDescriptor.colorAttachments[0] = colorAttachmentDescriptor;
 
+    /// Initializing command encoder and setting pipeline state
     id<MTLRenderCommandEncoder> commandEncoder = [commandBuffer renderCommandEncoderWithDescriptor:renderPassDescriptor];
     id<MTLRenderPipelineState> pipelineState = [deviceCache oscPipelineStateWithRegistryID:destinationImage.deviceRegistryID];
     Renderer renderer(commandEncoder, commandBuffer);
     renderer.setRenderPipelineState(pipelineState);
 
-    [self drawOSC:destinationImage renderer:renderer activePart:activePart atTime:time];
+    /// Drawing osc
+    float destImageWidth = destinationImage.imagePixelBounds.right - destinationImage.imagePixelBounds.left;
+    float destImageHeight = destinationImage.imagePixelBounds.top - destinationImage.imagePixelBounds.bottom;
 
+    /// Setting viewport
+    float ioSurfaceHeight = [destinationImage.ioSurface height];
+    MTLViewport viewport = {0, ioSurfaceHeight - destImageHeight, destImageWidth, destImageHeight, -1.0, 1.0};
+    renderer.setViewport(viewport);
+
+    /// Getting current effect
+    id<FxParameterRetrievalAPI_v6> paramAPI = [_apiManager apiForProtocol:@protocol(FxParameterRetrievalAPI_v6)];
+    int et;
+    [paramAPI getIntValue:&et fromParameter:PF_EffectTypes atTime:time];
+    
+    /// Drawing OSC for circle blur effect
+    if (et == ET_Blur) {
+        [self drawCircleWithCanvasSize:NSMakeSize(destImageWidth, destImageHeight)
+                             renderer:renderer
+                           activePart:activePart
+                           effectType:ET_CircleBlur
+                               time:time];
+    }
+    /// Drawing OSC for fish eye effect
+    else if (et == ET_SpecialEffect) {
+        [self drawCircleWithCanvasSize:NSMakeSize(destImageWidth, destImageHeight)
+                             renderer:renderer
+                           activePart:activePart
+                           effectType:ET_FishEye
+                               time:time];
+    }
+    /// Drawing OSC for lens flare effect
+    else if (et == ET_LensFlare) {
+        [self drawCircleWithCanvasSize:NSMakeSize(destImageWidth, destImageHeight)
+                             renderer:renderer
+                           activePart:activePart
+                           effectType:ET_LensFlare
+                               time:time];
+    }
+    /// Drawing OSC for basic effects
+    else if (et == ET_Basic) {
+        [self drawPolygonWithCanvasSize:NSMakeSize(destImageWidth, destImageHeight) renderer:renderer activePart:activePart time:time];
+    }
+
+    /// Ending encoding, commiting command buffer and waiting after calculations will be completed
     renderer.endEncoding();
     renderer.commitAndWaitUntilCompleted();
 
     [deviceCache returnCommandQueueToCache:commandQueue];
-
     [colorAttachmentDescriptor release];
 }
 
@@ -1029,15 +749,16 @@
     return kFxDrawingCoordinates_CANVAS;
 }
 
+/// Method used to check hit test for osc in a shape of circle
 - (BOOL)checkCircleHitTest:(NSInteger *)activePart
               circleRadius:(double)circleRadius
                     oscAPI:(id<FxOnScreenControlAPI_v4>)oscAPI
-              parameterAPI:(id<FxParameterRetrievalAPI_v6>)paramAPI
+              paramManager:(ParameterManager)paramManager
             objectPosition:(CGPoint)objectPosition
                       flag:(ParameterFlags)flag
                       time:(CMTime)time {
     CGPoint cc = {0.0, 0.0};
-    [paramAPI getXValue:&cc.x YValue:&cc.y fromParameter:flag atTime:time];
+    paramManager.getPointValues(&cc.x, &cc.y, flag, time);
 
     circleRadius *= _size.height;
 
@@ -1045,49 +766,55 @@
     NSRect inputBounds = [oscAPI inputBounds];
     double objectRadius = circleRadius / inputBounds.size.width;
 
+    /// Calculating vector from circle center to object position
     CGPoint delta = {objectPosition.x - cc.x, (objectPosition.y - cc.y) * inputBounds.size.height / inputBounds.size.width};
-
+    /// Calculating length of vector
     double dist = sqrt(delta.x * delta.x + delta.y * delta.y);
-
-    if (dist < objectRadius)
-        return TRUE;
-
-    return FALSE;
+    
+    return (dist < objectRadius);
 }
 
-- (BOOL)checkPolygonHitTest:(CGPoint)objectPosition paramAPI:(id<FxParameterRetrievalAPI_v6>)paramAPI atTime:(CMTime)time {
+/// Method used to check hit test for polygon osc
+- (BOOL)checkPolygonHitTest:(CGPoint)objectPosition paramManager:(ParameterManager)paramManager time:(CMTime)time {
+    /// Get number of vertices
     int vertices;
-    [paramAPI getIntValue:&vertices fromParameter:PF_BasicOSCMenu atTime:time];
-
+    paramManager.getIntValue(&vertices, PF_BasicOSCMenu, time);
+    /// Return if there are no vertices to render
     if (vertices == 0)
         return FALSE;
     vertices += 2;
 
     std::vector<CGPoint> pointVector;
 
+    /// Collect points poosition from all vertices
     for (int i = 0; i < vertices + 1; i++) {
         CGPoint pt;
-        [paramAPI getXValue:&pt.x YValue:&pt.y fromParameter:(PF_BasicPosition1 + i % vertices) atTime:time];
-
+        paramManager.getPointValues(&pt.x, &pt.y, static_cast<ParameterFlags>(PF_BasicPosition1 + i % vertices), time);
         pointVector.push_back(pt);
     }
     int counter = 0;
 
+    /// Actual hit test
     for (int i = 0; i < vertices; i++) {
+        /// Check if point's y value is beetween the y values of some edge
         if ((pointVector[i].y > objectPosition.y && pointVector[i + 1].y < objectPosition.y) ||
             (pointVector[i].y < objectPosition.y && pointVector[i + 1].y > objectPosition.y)) {
+            /// If so calculate the a and b values for linear function ax+b
             double a = (pointVector[i + 1].y - pointVector[i].y) / (pointVector[i + 1].x - pointVector[i].x);
             double b = pointVector[i].y - pointVector[i].x * a;
-
+            /// 1. If function is increasing check if point lies above it
+            /// 2. If function is decreasing check if point lies under it
             if ((a >= 0 && objectPosition.y >= objectPosition.x * a + b) || (a <= 0 && objectPosition.y <= objectPosition.x * a + b)) {
                 counter++;
             }
         }
     }
-
+    
+    /// If the counter is odd, the point lies inside of polygon
     return (counter % 2 == 1 ? TRUE : FALSE);
 }
 
+/// Method used to determine which part of osc was hit
 - (void)hitTestOSCAtMousePositionX:(double)mousePositionX
                     mousePositionY:(double)mousePositionY
                         activePart:(NSInteger *)activePart
@@ -1120,7 +847,7 @@
     if ([self checkCircleHitTest:activePart
                     circleRadius:circleRadius
                           oscAPI:oscAPI
-                    parameterAPI:paramAPI
+                    paramManager:paramManager
                   objectPosition:objectPosition
                             flag:PF_CircleBlurLocation
                             time:time]) {
@@ -1134,7 +861,7 @@
     if ([self checkCircleHitTest:activePart
                     circleRadius:_smallRadius
                           oscAPI:oscAPI
-                    parameterAPI:paramAPI
+                    paramManager:paramManager
                   objectPosition:objectPosition
                             flag:PF_FishEyeLocation
                             time:time]) {
@@ -1148,7 +875,7 @@
     if ([self checkCircleHitTest:activePart
                     circleRadius:_smallRadius
                           oscAPI:oscAPI
-                    parameterAPI:paramAPI
+                    paramManager:paramManager
                   objectPosition:objectPosition
                             flag:PF_LensFlareLocation
                             time:time]) {
@@ -1158,177 +885,30 @@
             return;
         }
     }
-
-    if ([self checkCircleHitTest:activePart
-                    circleRadius:_smallRadius
-                          oscAPI:oscAPI
-                    parameterAPI:paramAPI
-                  objectPosition:objectPosition
-                            flag:PF_BasicPosition1
-                            time:time]) {
-        if (et == ET_Basic && vertices >= 1) {
-            *activePart = AP_Basic1;
-            [oscAPI setCursor:[NSCursor openHandCursor]];
-            return;
+    /// Hit test for one of the vertices
+    for(int i = 0; i < 12; i++)
+    {
+        if ([self checkCircleHitTest:activePart
+                        circleRadius:_smallRadius
+                              oscAPI:oscAPI
+                        paramManager:paramManager
+                      objectPosition:objectPosition
+                                flag:static_cast<ParameterFlags>(PF_BasicPosition1 + i)
+                                time:time]) {
+            if (et == ET_Basic && vertices >= 1) {
+                *activePart = AP_Basic1 + i;
+                [oscAPI setCursor:[NSCursor openHandCursor]];
+                return;
+            }
         }
     }
-
-    if ([self checkCircleHitTest:activePart
-                    circleRadius:_smallRadius
-                          oscAPI:oscAPI
-                    parameterAPI:paramAPI
-                  objectPosition:objectPosition
-                            flag:PF_BasicPosition2
-                            time:time]) {
-        if (et == ET_Basic && vertices >= 1) {
-            *activePart = AP_Basic2;
-            [oscAPI setCursor:[NSCursor openHandCursor]];
-            return;
-        }
-    }
-
-    if ([self checkCircleHitTest:activePart
-                    circleRadius:_smallRadius
-                          oscAPI:oscAPI
-                    parameterAPI:paramAPI
-                  objectPosition:objectPosition
-                            flag:PF_BasicPosition3
-                            time:time]) {
-        if (et == ET_Basic && vertices >= 1) {
-            *activePart = AP_Basic3;
-            [oscAPI setCursor:[NSCursor openHandCursor]];
-            return;
-        }
-    }
-
-    if ([self checkCircleHitTest:activePart
-                    circleRadius:_smallRadius
-                          oscAPI:oscAPI
-                    parameterAPI:paramAPI
-                  objectPosition:objectPosition
-                            flag:PF_BasicPosition4
-                            time:time]) {
-        if (et == ET_Basic && vertices >= 2) {
-            *activePart = AP_Basic4;
-            [oscAPI setCursor:[NSCursor openHandCursor]];
-            return;
-        }
-    }
-
-    if ([self checkCircleHitTest:activePart
-                    circleRadius:_smallRadius
-                          oscAPI:oscAPI
-                    parameterAPI:paramAPI
-                  objectPosition:objectPosition
-                            flag:PF_BasicPosition5
-                            time:time]) {
-        if (et == ET_Basic && vertices >= 3) {
-            *activePart = AP_Basic5;
-            [oscAPI setCursor:[NSCursor openHandCursor]];
-            return;
-        }
-    }
-
-    if ([self checkCircleHitTest:activePart
-                    circleRadius:_smallRadius
-                          oscAPI:oscAPI
-                    parameterAPI:paramAPI
-                  objectPosition:objectPosition
-                            flag:PF_BasicPosition6
-                            time:time]) {
-        if (et == ET_Basic && vertices >= 4) {
-            *activePart = AP_Basic6;
-            [oscAPI setCursor:[NSCursor openHandCursor]];
-            return;
-        }
-    }
-
-    if ([self checkCircleHitTest:activePart
-                    circleRadius:_smallRadius
-                          oscAPI:oscAPI
-                    parameterAPI:paramAPI
-                  objectPosition:objectPosition
-                            flag:PF_BasicPosition7
-                            time:time]) {
-        if (et == ET_Basic && vertices >= 5) {
-            *activePart = AP_Basic7;
-            [oscAPI setCursor:[NSCursor openHandCursor]];
-            return;
-        }
-    }
-
-    if ([self checkCircleHitTest:activePart
-                    circleRadius:_smallRadius
-                          oscAPI:oscAPI
-                    parameterAPI:paramAPI
-                  objectPosition:objectPosition
-                            flag:PF_BasicPosition8
-                            time:time]) {
-        if (et == ET_Basic && vertices >= 6) {
-            *activePart = AP_Basic8;
-            [oscAPI setCursor:[NSCursor openHandCursor]];
-            return;
-        }
-    }
-
-    if ([self checkCircleHitTest:activePart
-                    circleRadius:_smallRadius
-                          oscAPI:oscAPI
-                    parameterAPI:paramAPI
-                  objectPosition:objectPosition
-                            flag:PF_BasicPosition9
-                            time:time]) {
-        if (et == ET_Basic && vertices >= 7) {
-            *activePart = AP_Basic9;
-            [oscAPI setCursor:[NSCursor openHandCursor]];
-            return;
-        }
-    }
-
-    if ([self checkCircleHitTest:activePart
-                    circleRadius:_smallRadius
-                          oscAPI:oscAPI
-                    parameterAPI:paramAPI
-                  objectPosition:objectPosition
-                            flag:PF_BasicPosition10
-                            time:time]) {
-        if (et == ET_Basic && vertices >= 8) {
-            *activePart = AP_Basic10;
-            [oscAPI setCursor:[NSCursor openHandCursor]];
-            return;
-        }
-    }
-
-    if ([self checkCircleHitTest:activePart
-                    circleRadius:_smallRadius
-                          oscAPI:oscAPI
-                    parameterAPI:paramAPI
-                  objectPosition:objectPosition
-                            flag:PF_BasicPosition11
-                            time:time]) {
-        if (et == ET_Basic && vertices >= 9) {
-            *activePart = AP_Basic11;
-            [oscAPI setCursor:[NSCursor openHandCursor]];
-            return;
-        }
-    }
-
-    if ([self checkCircleHitTest:activePart
-                    circleRadius:_smallRadius
-                          oscAPI:oscAPI
-                    parameterAPI:paramAPI
-                  objectPosition:objectPosition
-                            flag:PF_BasicPosition12
-                            time:time]) {
-        if (et == ET_Basic && vertices >= 10) {
-            *activePart = AP_Basic12;
-            [oscAPI setCursor:[NSCursor openHandCursor]];
-            return;
-        }
-    }
-
-    if ([self checkPolygonHitTest:objectPosition paramAPI:paramAPI atTime:time]) {
-        if (et == ET_Basic) {
+    /// Hit test for polygon
+    if ([self checkPolygonHitTest:objectPosition
+                     paramManager:paramManager
+                           time:time])
+    {
+        if(et == ET_Basic)
+        {
             *activePart = AP_BasicOSC;
             [oscAPI setCursor:[NSCursor openHandCursor]];
             return;
@@ -1336,6 +916,7 @@
     }
 }
 
+/// Method used in handling key down events
 - (void)keyDownAtPositionX:(double)mousePositionX
                  positionY:(double)mousePositionY
                 keyPressed:(unsigned short)asciiKey
@@ -1394,12 +975,12 @@
                 /// 'm'
                 else if (asciiKey == 77) {
                     /// Change circle radius to bigger one
-                    paramManager.swapFloatValues(0.05, PF_CircleBlurAmount, time);
+                    paramManager.swapFloatValues(0.05, PF_CircleBlurRadius, time);
                 }
                 /// 'n'
                 else if (asciiKey == 78) {
                     /// Change circl;e radius to smaller one
-                    paramManager.swapFloatValues(-0.05, PF_CircleBlurAmount, time);
+                    paramManager.swapFloatValues(-0.05, PF_CircleBlurRadius, time);
                 }
 
                 // Change smooth edges on and off - 's'
@@ -1591,79 +1172,32 @@
     paramManager.setRetrievalApi(paramGetAPI);
     
     /// Handling the movement of osc elements based on part, which is currently clicked
+    /// Handling the movement of circle blur osc
     if (activePart == AP_CircleBlur) {
         paramManager.swapPointValues(delta.x, delta.y, PF_CircleBlurLocation, time);
     }
-
+    /// Handling the movement of fish eye osc
     else if (activePart == AP_FishEye) {
         paramManager.swapPointValues(delta.x, delta.y, PF_FishEyeLocation, time);
     }
-
+    /// Handling the movement of lens flare osc
     else if (activePart == AP_LensFlare) {
         paramManager.swapPointValues(delta.x, delta.y, PF_LensFlareLocation, time);
     }
-
-    else if (activePart == AP_Basic1) {
-        paramManager.swapPointValues(delta.x, delta.y, PF_BasicPosition1, time);
+    /// Handling movement of vertices of basic effect osc
+    for(int i = 0; i < 12; i++)
+    {
+        if (activePart == AP_Basic1 + i) {
+            paramManager.swapPointValues(delta.x, delta.y, static_cast<ParameterFlags>(PF_BasicPosition1 + i), time);
+        }
     }
-
-    else if (activePart == AP_Basic2) {
-        paramManager.swapPointValues(delta.x, delta.y, PF_BasicPosition2, time);
-    }
-
-    else if (activePart == AP_Basic3) {
-        paramManager.swapPointValues(delta.x, delta.y, PF_BasicPosition3, time);
-    }
-
-    else if (activePart == AP_Basic4) {
-        paramManager.swapPointValues(delta.x, delta.y, PF_BasicPosition4, time);
-    }
-
-    else if (activePart == AP_Basic5) {
-        paramManager.swapPointValues(delta.x, delta.y, PF_BasicPosition5, time);
-    }
-
-    else if (activePart == AP_Basic6) {
-        paramManager.swapPointValues(delta.x, delta.y, PF_BasicPosition6, time);
-    }
-
-    else if (activePart == AP_Basic7) {
-        paramManager.swapPointValues(delta.x, delta.y, PF_BasicPosition7, time);
-    }
-
-    else if (activePart == AP_Basic8) {
-        paramManager.swapPointValues(delta.x, delta.y, PF_BasicPosition8, time);
-    }
-
-    else if (activePart == AP_Basic9) {
-        paramManager.swapPointValues(delta.x, delta.y, PF_BasicPosition9, time);
-    }
-
-    else if (activePart == AP_Basic10) {
-        paramManager.swapPointValues(delta.x, delta.y, PF_BasicPosition10, time);
-    }
-
-    else if (activePart == AP_Basic11) {
-        paramManager.swapPointValues(delta.x, delta.y, PF_BasicPosition12, time);
-    }
-
-    else if (activePart == AP_Basic12) {
-        paramManager.swapPointValues(delta.x, delta.y, PF_BasicPosition12, time);
-    }
-
-    else if (activePart == AP_BasicOSC) {
-        paramManager.swapPointValues(delta.x, delta.y, PF_BasicPosition1, time);
-        paramManager.swapPointValues(delta.x, delta.y, PF_BasicPosition2, time);
-        paramManager.swapPointValues(delta.x, delta.y, PF_BasicPosition3, time);
-        paramManager.swapPointValues(delta.x, delta.y, PF_BasicPosition4, time);
-        paramManager.swapPointValues(delta.x, delta.y, PF_BasicPosition5, time);
-        paramManager.swapPointValues(delta.x, delta.y, PF_BasicPosition6, time);
-        paramManager.swapPointValues(delta.x, delta.y, PF_BasicPosition7, time);
-        paramManager.swapPointValues(delta.x, delta.y, PF_BasicPosition8, time);
-        paramManager.swapPointValues(delta.x, delta.y, PF_BasicPosition9, time);
-        paramManager.swapPointValues(delta.x, delta.y, PF_BasicPosition10, time);
-        paramManager.swapPointValues(delta.x, delta.y, PF_BasicPosition11, time);
-        paramManager.swapPointValues(delta.x, delta.y, PF_BasicPosition12, time);
+    /// Handling movement off all vertices from basic effect osc
+    if (activePart == AP_BasicOSC)
+    {
+        for(int i = 0; i < 12; i++)
+        {
+            paramManager.swapPointValues(delta.x, delta.y, static_cast<ParameterFlags>(PF_BasicPosition1 + i), time);
+        }
     }
 
     *forceUpdate = YES;

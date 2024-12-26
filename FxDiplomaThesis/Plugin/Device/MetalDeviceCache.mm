@@ -273,10 +273,13 @@ static MetalDeviceCache*   gDeviceCache    = nil;
         {
             NSLog (@"Error generating negative pipeline state: %@", error);
         }
+    
         
+        if (error != nil)
+        {
+            NSLog (@"Error generating negative pipeline state: %@", error);
+        }
 
-        id<MTLFunction> kernelFunction = [[defaultLibrary newFunctionWithName:@"computeGradientMax"] autorelease];
-        _kernelPipelines[KPT_EdgeDetectionCalculateMagnitude] =  [device newComputePipelineStateWithFunction:kernelFunction error:&error];
         
         if (_commandQueueCache != nil)
         {
@@ -289,7 +292,6 @@ static MetalDeviceCache*   gDeviceCache    = nil;
             || (_pipelines[PT_KawaseBlur] == nil) || (_pipelines[PT_BoxBlur] == nil)
             || (_pipelines[PT_Pixelation] == nil) || (_pipelines[PT_FishEye] == nil)
             || (_pipelines[PT_CircleBlur] == nil) || (_pipelines[PT_Echo] == nil)
-            || (_kernelPipelines[KPT_EdgeDetectionCalculateMagnitude] == nil)
             || (_pipelines[PT_LensFlare] == nil) || (_pipelines[PT_OSC] == nil)
             )
         {
@@ -601,62 +603,6 @@ static MetalDeviceCache*   gDeviceCache    = nil;
     }
     
     return nil;
-}
-
-- (id<MTLComputePipelineState>)computePipelineStateWithRegistryID:(uint64_t)registryID
-                                              pixelFormat:(MTLPixelFormat)pixFormat
-                                             pipelineType:(KernelPipelineTypes)pipType;
-{
-    for (MetalDeviceCacheItem* nextCacheItem in deviceCaches)
-    {
-        if ((nextCacheItem.gpuDevice.registryID == registryID)  &&
-            (nextCacheItem.pixelFormat == pixFormat))
-        {
-            switch (pipType) {
- 
-                case KPT_EdgeDetectionCalculateMagnitude:
-                    return nextCacheItem.kernelPipelines[KPT_EdgeDetectionCalculateMagnitude];
-                    break;
-                    
-                default:
-                    break;
-            }
-        }
-    }
-    
-    NSArray<id<MTLDevice>>* devices = MTLCopyAllDevices();
-    id<MTLDevice>   device  = nil;
-    for (id<MTLDevice> nextDevice in devices)
-    {
-        if (nextDevice.registryID == registryID)
-        {
-            device = nextDevice;
-        }
-    }
-    
-    id<MTLComputePipelineState>  result  = nil;
-    if (device != nil)
-    {
-        MetalDeviceCacheItem*   newCacheItem    = [[[MetalDeviceCacheItem alloc] initWithDevice:device
-                                                                                    pixelFormat:pixFormat]
-                                                    autorelease];
-        if (newCacheItem != nil)
-        {
-            [deviceCaches addObject:newCacheItem];
-            
-            switch (pipType) {
- 
-                case KPT_EdgeDetectionCalculateMagnitude:
-                    return newCacheItem.kernelPipelines[KPT_EdgeDetectionCalculateMagnitude];
-                    break;
-                    
-                default:
-                    break;
-            }
-        }
-    }
-    [devices release];
-    return result;
 }
 
 - (id<MTLCommandQueue>)commandQueueWithRegistryID:(uint64_t)registryID

@@ -3,7 +3,6 @@
 #import <algorithm>
 
 
-/// - Class: FxDiplomaThesisPlugIn
 @implementation FxDiplomaThesisPlugIn
 
 ///Initializing class with API manager and setting class properties
@@ -12,7 +11,7 @@
     self = [super init];
     if (self != nil) {
         _apiManager = newApiManager;
-        _menuEntries = @[@"None", @"Basic", @"Blur", @"Special Effects", @"Lens Flare", @"Timing", @"Edge detection"];
+        _menuEntries = @[@"None", @"Basic", @"Blur", @"Special Effects", @"Lens Flare", @"Timing"];
         _channelsEntries = @[@"All", @"Red", @"Green", @"Blue", @"Hue", @"Saturation", @"Lightness"];
         _blurEntries = @[@"Gaussian blur", @"Kawase blur", @"Box blur", @"Circle blur"];
         _specialEffectsEntries = @[@"Oil painting", @"Pixelation", @"Fish eye"];
@@ -99,6 +98,7 @@
     ParameterManager paramManager;
     paramManager.setParamApi(paramAPI);
     
+    /// Adding parameters to plugin
     paramManager.addPopupMenu(@"Filters", PF_EffectTypes, 0, _menuEntries, kFxParameterFlag_DEFAULT);
     paramManager.startSubGroup(@"Basic effects", PF_BasicGroup, kFxParameterFlag_HIDDEN);
     {
@@ -235,10 +235,12 @@
     id<FxParameterRetrievalAPI_v6> retrievalAPI = [_apiManager apiForProtocol:@protocol(FxParameterRetrievalAPI_v6)];
     id<FxParameterSettingAPI_v6> settingsAPI = [_apiManager apiForProtocol:@protocol(FxParameterSettingAPI_v6)];
 
+    /// Initializing parameter manager
     ParameterManager paramManager;
     paramManager.setSettingsApi(settingsAPI);
     paramManager.setRetrievalApi(retrievalAPI);
 
+    /// Getting current values from all popup menus
     int menuVal, blurMenu, specialMenu, timingMenu, timingRenderingMenu, oscMenu;
     paramManager.getIntValue(&menuVal, PF_EffectTypes, time);
     paramManager.getIntValue(&blurMenu, PF_BlurTypes, time);
@@ -247,6 +249,7 @@
     paramManager.getIntValue(&timingRenderingMenu, PF_TimingEchoRenderingTypes, time);
     paramManager.getIntValue(&oscMenu, PF_BasicOSCMenu, time);
 
+    /// Hadling change of effect
     if (paramID == PF_EffectTypes) {
 
         paramManager.hide(PF_BasicGroup);
@@ -326,12 +329,13 @@
                 paramManager.show(PF_TimingGroup);
                 break;
             }
-
+                
             default:
                 break;
         }
     }
 
+    /// Handling change of number of vertices in basic effect
     else if (paramID == PF_BasicOSCMenu) {
         paramManager.hide(PF_BasicPosition1);
         paramManager.hide(PF_BasicPosition2);
@@ -396,6 +400,7 @@
         }
     }
 
+    /// Handling change of blur type
     else if (paramID == PF_BlurTypes) {
         paramManager.hide(PF_GaussianBlurRadius);
         paramManager.hide(PF_KawaseBlurRadius);
@@ -434,6 +439,7 @@
         }
     }
 
+    /// Handling change of special effect type
     else if (paramID == PF_SpecialEffectsTypes) {
         paramManager.hide(PF_OilPaintingGroup);
         paramManager.hide(PF_PixelizationGroup);
@@ -465,7 +471,9 @@
                 break;
         }
     }
+    
 
+    /// Handling change of timing types
     else if (paramID == PF_TimingTypes) {
         paramManager.hide(PF_TimingEchoGroup);
 
@@ -480,6 +488,7 @@
         }
     }
 
+    /// Handling change of echo type
     else if (paramID == PF_TimingEchoRenderingTypes) {
         paramManager.hide(PF_TimingEchoNumOfFramesOneDir);
         paramManager.hide(PF_TimingEchoNumOfFramesTwoDir);
@@ -503,63 +512,79 @@
             }
         }
     }
+    
 
+    /// Handling change of fish eye location
     else if (paramID == PF_FishEyeLocation) {
         paramManager.getPointValues(&_lastFishEyePosition.x, &_lastFishEyePosition.y, PF_FishEyeLocation, time);
     }
-
+    
+    /// Handling change of circle blur location
     else if (paramID == PF_CircleBlurLocation) {
         paramManager.getPointValues(&_lastCircleBlurPosition.x, &_lastCircleBlurPosition.y, PF_CircleBlurLocation, time);
     }
 
+    /// Handling change of lens flare location
     else if (paramID == PF_LensFlareLocation) {
         paramManager.getPointValues(&_lastLensFlarePosition.x, &_lastLensFlarePosition.y, PF_LensFlareLocation, time);
     }
-
+    
+    /// Handling change of basic osc position - vertex 1
     else if (paramID == PF_BasicPosition1) {
         paramManager.getPointValues(&_oscBasicLastPositions[0].x, &_oscBasicLastPositions[0].y, PF_BasicPosition1, time);
     }
 
+    /// Handling change of basic osc position - vertex 2
     else if (paramID == PF_BasicPosition2) {
         paramManager.getPointValues(&_oscBasicLastPositions[1].x, &_oscBasicLastPositions[1].y, PF_BasicPosition2, time);
     }
 
+    /// Handling change of basic osc position - vertex 3
     else if (paramID == PF_BasicPosition3) {
         paramManager.getPointValues(&_oscBasicLastPositions[2].x, &_oscBasicLastPositions[2].y, PF_BasicPosition3, time);
     }
 
+    /// Handling change of basic osc position - vertex 4
     else if (paramID == PF_BasicPosition4) {
         paramManager.getPointValues(&_oscBasicLastPositions[3].x, &_oscBasicLastPositions[3].y, PF_BasicPosition4, time);
     }
-
+    
+    /// Handling change of basic osc position - vertex 5
     else if (paramID == PF_BasicPosition5) {
         paramManager.getPointValues(&_oscBasicLastPositions[4].x, &_oscBasicLastPositions[4].y, PF_BasicPosition5, time);
     }
 
+    /// Handling change of basic osc position - vertex 6
     else if (paramID == PF_BasicPosition6) {
         paramManager.getPointValues(&_oscBasicLastPositions[5].x, &_oscBasicLastPositions[5].y, PF_BasicPosition6, time);
     }
 
+    /// Handling change of basic osc position - vertex 7
     else if (paramID == PF_BasicPosition7) {
         paramManager.getPointValues(&_oscBasicLastPositions[6].x, &_oscBasicLastPositions[6].y, PF_BasicPosition7, time);
     }
 
+    /// Handling change of basic osc position - vertex 8
     else if (paramID == PF_BasicPosition8) {
         paramManager.getPointValues(&_oscBasicLastPositions[7].x, &_oscBasicLastPositions[7].y, PF_BasicPosition8, time);
     }
 
+    /// Handling change of basic osc position - vertex 9
     else if (paramID == PF_BasicPosition9) {
         paramManager.getPointValues(&_oscBasicLastPositions[8].x, &_oscBasicLastPositions[8].y, PF_BasicPosition9, time);
     }
 
+    /// Handling change of basic osc position - vertex 10
     else if (paramID == PF_BasicPosition10) {
         paramManager.getPointValues(&_oscBasicLastPositions[9].x, &_oscBasicLastPositions[9].y, PF_BasicPosition10, time);
     }
 
+    /// Handling change of basic osc position - vertex 11
     else if (paramID == PF_BasicPosition11) {
         paramManager.getPointValues(&_oscBasicLastPositions[10].x, &_oscBasicLastPositions[10].y, PF_BasicPosition11, time);
     }
 
+    /// Handling change of basic osc position - vertex 12
     else if (paramID == PF_BasicPosition12) {
         paramManager.getPointValues(&_oscBasicLastPositions[11].x, &_oscBasicLastPositions[11].y, PF_BasicPosition12, time);
     }
@@ -567,13 +592,16 @@
     return YES;
 }
 
+/// Getting plugin state (parameter values) at certain time
 - (BOOL)pluginState:(NSData **)pluginState atTime:(CMTime)renderTime quality:(FxQuality)qualityLevel error:(NSError **)error {
     BOOL succeeded = NO;
     id<FxParameterRetrievalAPI_v6> paramGetAPI = [_apiManager apiForProtocol:@protocol(FxParameterRetrievalAPI_v6)];
     if (paramGetAPI != nil) {
+        /// Initializing parameter manager
         ParameterManager paramManager;
         paramManager.setRetrievalApi(paramGetAPI);
 
+        /// Getting value from all popup menus
         int effectType, blurType, specialType, timingType, timingRenderingtype, oscType;
         paramManager.getIntValue(&effectType, PF_EffectTypes, renderTime);
         paramManager.getIntValue(&blurType, PF_BlurTypes, renderTime);
@@ -582,6 +610,7 @@
         paramManager.getIntValue(&timingRenderingtype, PF_TimingEchoRenderingTypes, renderTime);
         paramManager.getIntValue(&oscType, PF_BasicOSCMenu, renderTime);
 
+        /// Initializing plugin state and filling it's field with current values from all of the parameters
         PluginState state;
         paramManager.getIntValue(&state.channelType, PF_ChannelTypes, renderTime);
         paramManager.getIntValue(&state.gaussianBlurRadius, PF_GaussianBlurRadius, renderTime);
@@ -615,6 +644,7 @@
         paramManager.getPointValues(&state.fishEyeLocX, &state.fishEyeLocY, PF_FishEyeLocation, renderTime);
         paramManager.getPointValues(&state.circleBlurLocationX, &state.circleBlurLocationY, PF_CircleBlurLocation, renderTime);
 
+        /// Modyfying values from parameters
         if (state.brightness < 0.0)
             state.brightness = (state.brightness + 100.0) / 100.0;
         else
@@ -679,6 +709,7 @@
         paramManager.getPointValues(&x, &y, PF_BasicPosition12, renderTime);
         state.basicPosition12 = {x, y};
 
+        /// Assigning current effect type in plugin state
         if (effectType == ET_Blur) {
             if (blurType == BT_GaussianBlur)
                 state.effect = ET_GaussianBlur;
@@ -703,10 +734,12 @@
             if (timingType == TT_Echo)
                 state.effect = ET_Echo;
         }
+        
 
         else
             state.effect = static_cast<EffectTypes>(effectType);
 
+        /// Handling frames number, delay and type of echo effect to render
         if (state.effect == ET_Echo) {
             if (timingRenderingtype == TRT_None) {
                 _numFrames = 1;
@@ -729,6 +762,7 @@
             _typeToRenderEcho = TRT_None;
         }
 
+        /// filling plugin state state with all of the values
         *pluginState = [NSData dataWithBytes:&state length:sizeof(state)];
 
         if (*pluginState != nil) {
@@ -747,6 +781,7 @@
     return succeeded;
 }
 
+/// Setting the destination image rectagle size
 - (BOOL)destinationImageRect:(FxRect *)destinationImageRect
                 sourceImages:(NSArray<FxImageTile *> *)sourceImages
             destinationImage:(nonnull FxImageTile *)destinationImage
@@ -758,11 +793,13 @@
         return NO;
     }
 
+    /// Setting destination image rectanle as same as input image pixel bounds
     *destinationImageRect = sourceImages[0].imagePixelBounds;
 
     return YES;
 }
 
+/// Setting source image rectangle
 - (BOOL)sourceTileRect:(FxRect *)sourceTileRect
        sourceImageIndex:(NSUInteger)sourceImageIndex
            sourceImages:(NSArray<FxImageTile *> *)sourceImages
@@ -771,28 +808,33 @@
             pluginState:(NSData *)pluginState
                  atTime:(CMTime)renderTime
                   error:(NSError *_Nullable *)outError {
+    /// Assigning source rectangle with destination rectangle
     *sourceTileRect = destinationTileRect;
 
     return YES;
 }
 
+/// Scheduling input images for rendering
 - (BOOL)scheduleInputs:(NSArray<FxImageTileRequest *> *_Nullable *_Nullable)inputImageRequests
        withPluginState:(NSData *_Nullable)pluginState
                 atTime:(CMTime)renderTime
                  error:(NSError **)error {
     NSMutableArray<FxImageTileRequest *> *requests = [NSMutableArray array];
 
+    /// Get the current frame
     FxImageTileRequest *currentFrameRequest = [[FxImageTileRequest alloc] initWithSource:kFxImageTileRequestSourceEffectClip
                                                                                     time:renderTime
                                                                           includeFilters:YES
                                                                              parameterID:0];
+    /// Adding current frame to array of tiles
     [requests addObject:currentFrameRequest];
 
+    /// Handling echo effect with forward and backawd blending
     if (_typeToRenderEcho == TRT_Center) {
         for (float i = -(_numFrames - 1); i < _numFrames; i++) {
             if (i != 0) {
+                /// Getting next frame after _frameDelay time
                 CMTime nextFrameTime = CMTimeAdd(renderTime, CMTimeMake(renderTime.timescale * i * _frameDelay, renderTime.timescale));
-
                 FxImageTileRequest *nextFrameRequest = [[FxImageTileRequest alloc] initWithSource:kFxImageTileRequestSourceEffectClip
                                                                                              time:nextFrameTime
                                                                                    includeFilters:YES
@@ -801,7 +843,7 @@
             }
         }
     }
-
+    /// Handling echo effect with forward blending
     else if (_typeToRenderEcho == TRT_Front) {
         for (float i = 1; i < _numFrames; i++) {
             CMTime nextFrameTime = CMTimeAdd(renderTime, CMTimeMake(renderTime.timescale * i * _frameDelay, renderTime.timescale));
@@ -813,7 +855,7 @@
             [requests addObject:nextFrameRequest];
         }
     }
-
+    /// Handling echo effect with backawd blending
     else if (_typeToRenderEcho == TRT_Back) {
 
         for (float i = -(_numFrames - 1); i < 0; i++) {
@@ -832,6 +874,7 @@
     return YES;
 }
 
+/// Rendering the image
 - (BOOL)renderDestinationImage:(FxImageTile *)destinationImage
                   sourceImages:(NSArray<FxImageTile *> *)sourceImages
                    pluginState:(NSData *)pluginState
@@ -844,9 +887,11 @@
         return NO;
     }
 
+    /// Getting data from plugin state
     PluginState state;
     [pluginState getBytes:&state length:sizeof(state)];
 
+    /// Initializing device for caching pipelines
     MetalDeviceCache *deviceCache = [MetalDeviceCache deviceCache];
     MTLPixelFormat pixelFormat = [MetalDeviceCache MTLPixelFormatForImageTile:destinationImage];
     id<MTLCommandQueue> commandQueue = [deviceCache commandQueueWithRegistryID:sourceImages[0].deviceRegistryID pixelFormat:pixelFormat];
@@ -854,20 +899,28 @@
         return NO;
     }
 
+    /// Initializing command buffer
     id<MTLCommandBuffer> commandBuffer = [commandQueue commandBuffer];
     [commandBuffer enqueue];
 
+    /// Getting input and output textures (right nowe output texture is full black)
     id<MTLTexture> inputTexture = [sourceImages[0] metalTextureForDevice:[deviceCache deviceWithRegistryID:sourceImages[0].deviceRegistryID]];
     id<MTLTexture> outputTexture = [destinationImage metalTextureForDevice:[deviceCache deviceWithRegistryID:destinationImage.deviceRegistryID]];
 
+    /// Initializing MTLRenderPassColorAttachmentDescriptor, which handles output texture and actions for rendering
     MTLRenderPassColorAttachmentDescriptor *colorAttachmentDescriptor = [[MTLRenderPassColorAttachmentDescriptor alloc] init];
     colorAttachmentDescriptor.texture = outputTexture;
     colorAttachmentDescriptor.clearColor = MTLClearColorMake(1.0, 0.5, 0.0, 1.0);
     colorAttachmentDescriptor.loadAction = MTLLoadActionClear;
+    
+    /// Initializng render pass descriptor and assigning coloAttachmentDescriptor to first image
     MTLRenderPassDescriptor *renderPassDescriptor = [MTLRenderPassDescriptor renderPassDescriptor];
     renderPassDescriptor.colorAttachments[0] = colorAttachmentDescriptor;
+    
+    /// Initializing command encoder for renderig
     id<MTLRenderCommandEncoder> commandEncoder = [commandBuffer renderCommandEncoderWithDescriptor:renderPassDescriptor];
 
+    /// Getting output width and height
     float outputWidth = (float)(destinationImage.tilePixelBounds.right - destinationImage.tilePixelBounds.left);
     float outputHeight = (float)(destinationImage.tilePixelBounds.top - destinationImage.tilePixelBounds.bottom);
     Vertex2D vertices[] = {{{static_cast<float>(outputWidth / 2.0), static_cast<float>(-outputHeight / 2.0)}, {1.0, 1.0}},
@@ -875,35 +928,48 @@
                            {{static_cast<float>(outputWidth / 2.0), static_cast<float>(outputHeight / 2.0)}, {1.0, 0.0}},
                            {{static_cast<float>(-outputWidth / 2.0), static_cast<float>(outputHeight / 2.0)}, {0.0, 0.0}}};
 
+    /// Initializing viewport size
     simd_uint2 viewportSize = {(unsigned int)(outputWidth), (unsigned int)(outputHeight)};
 
+    /// Setting viewport
     MTLViewport viewport = {0, 0, outputWidth, outputHeight, -1.0, 1.0};
 
+    /// Setting resolution
     simd_float2 resolution = simd_make_float2(outputWidth, outputHeight);
 
-    [commandEncoder setViewport:viewport];
 
+    /// Initializing renderer class
     Renderer renderer(commandEncoder, commandBuffer);
+    /// Setting viewport
     renderer.setViewport(viewport);
+    /// Setting vertices
     renderer.setVertexBytes(vertices, sizeof(vertices), VI_Vertices);
+    /// Setting viewport size
     renderer.setVertexBytes(&viewportSize, sizeof(viewportSize), VI_ViewportSize);
 
+    /// Calculating pixel width in x and y direction
     float texelSizeX = 1.0 / static_cast<float>(outputTexture.width);
     float texelSizeY = 1.0 / static_cast<float>(outputTexture.height);
 
+    
+    /// Rendering
 #pragma mark -
 #pragma mark Basic effect
     switch (state.effect) {
         case (ET_Basic): {
+            /// Rendering Full screen
             if (state.verticesNum == 0) {
+                /// Getting adequate pipeline
                 auto pipState = [deviceCache pipelineStateWithRegistryID:sourceImages[0].deviceRegistryID
                                                              pixelFormat:pixelFormat
                                                             pipelineType:PT_Basic];
 
+                /// Setting pipeline
                 renderer.setRenderPipelineState(pipState);
+                /// Setting vertex and fragment bytes
                 renderer.setVertexBytes(vertices, sizeof(vertices), VI_Vertices);
                 renderer.setVertexBytes(&viewportSize, sizeof(viewportSize), VI_ViewportSize);
-                renderer.setFragmentTexture(inputTexture, TI_BrightnessInputImage);
+                renderer.setFragmentTexture(inputTexture, TI_BasicInputImage);
                 renderer.setFragmentBytes(&state.channelType, sizeof(state.channelType), FIB_Channel);
                 renderer.setFragmentBytes(&state.brightness, sizeof(state.brightness), FIB_Brightness);
                 renderer.setFragmentBytes(&state.gammaCorrection, sizeof(state.gammaCorrection), FIB_GammaCorrection);
@@ -913,12 +979,16 @@
                 renderer.setFragmentBytes(&state.temperature, sizeof(state.temperature), FIB_Temperature);
                 renderer.setFragmentBytes(&state.negative, sizeof(state.negative), FIB_Negative);
 
+                /// Drawing using triangle strip
                 renderer.draw(MTLPrimitiveTypeTriangleStrip, 0, 4);
+                /// Ending drawing
                 renderer.endEncoding();
+                /// Commiting command encoder and waiting until operations are completed
                 renderer.commitAndWaitUntilCompleted();
                 break;
             }
 
+            /// Collecting all of the needed positions of vertexes
             std::vector<CGPoint> positions;
             positions.push_back(state.basicPosition1);
             positions.push_back(state.basicPosition2);
@@ -952,28 +1022,33 @@
                 positions.push_back(state.basicPosition12);
             }
 
+            /// Calculating trignles using Triangulation class
             auto triangles = Triangulation::getTriangulation(positions);
 
             id<MTLRenderPipelineState> pipelineState = [deviceCache pipelineStateWithRegistryID:sourceImages[0].deviceRegistryID
                                                                                     pixelFormat:pixelFormat
                                                                                    pipelineType:PT_None];
+            /// Drawing image in the background
             renderer.setRenderPipelineState(pipelineState);
             renderer.setFragmentTexture(inputTexture, TI_NoneInputImage);
             renderer.draw(MTLPrimitiveTypeTriangleStrip, 0, 4);
+            
             float halfW = outputWidth / 2.0, halfH = outputHeight / 2.0;
             Vertex2D vertices2[triangles.size()];
 
+            /// Setting new positions of vertices
             for (int i = 0; i < triangles.size(); i++)
                 vertices2[i] = {
                     {static_cast<float>(-halfW + outputWidth * triangles[i].x), -static_cast<float>(-halfH + outputHeight * triangles[i].y)},
                     {static_cast<float>(triangles[i].x), static_cast<float>(triangles[i].y)}};
 
-            auto pipState = [deviceCache pipelineStateWithRegistryID:sourceImages[0].deviceRegistryID pixelFormat:pixelFormat pipelineType:PT_Basic];
+            /// Rendering image inside polygon by using trianles
+            pipelineState = [deviceCache pipelineStateWithRegistryID:sourceImages[0].deviceRegistryID pixelFormat:pixelFormat pipelineType:PT_Basic];
 
-            renderer.setRenderPipelineState(pipState);
+            renderer.setRenderPipelineState(pipelineState);
             renderer.setVertexBytes(vertices2, sizeof(vertices2), VI_Vertices);
             renderer.setVertexBytes(&viewportSize, sizeof(viewportSize), VI_ViewportSize);
-            renderer.setFragmentTexture(inputTexture, TI_BrightnessInputImage);
+            renderer.setFragmentTexture(inputTexture, TI_BasicInputImage);
             renderer.setFragmentBytes(&state.channelType, sizeof(state.channelType), FIB_Channel);
             renderer.setFragmentBytes(&state.brightness, sizeof(state.brightness), FIB_Brightness);
             renderer.setFragmentBytes(&state.gammaCorrection, sizeof(state.gammaCorrection), FIB_GammaCorrection);
@@ -1005,10 +1080,13 @@
             renderer.setFragmentBytes(&texelSizeY, sizeof(texelSizeY), FIGB_TexelSizeY);
             renderer.setFragmentBytes(&state.gaussianBlurRadius, sizeof(state.gaussianBlurRadius), FIGB_BlurRadius);
 
+            /// Checking if matric cache containg matrix for given key, if not creating one
             if (!_mCache->contains(state.gaussianBlurRadius))
                 _mCache->putMatrixBuffer(state.gaussianBlurRadius);
 
+            /// Setting adequante matrix
             renderer.setFragmentBuffer(_mCache->get(state.gaussianBlurRadius), 0, FIGB_Matrix);
+            
             renderer.draw(MTLPrimitiveTypeTriangleStrip, 0, 4);
             renderer.endEncoding();
             renderer.commitAndWaitUntilCompleted();
@@ -1019,6 +1097,7 @@
 #pragma mark -
 #pragma mark Kawase Blur effect
         case (ET_KawaseBlur): {
+            /// Rendering kawase blur for radius equa to zero
             if (state.kawaseBlurRadius == 0) {
                 id<MTLRenderPipelineState> pipelineState = [deviceCache pipelineStateWithRegistryID:sourceImages[0].deviceRegistryID
                                                                                         pixelFormat:pixelFormat
@@ -1031,6 +1110,7 @@
                 renderer.draw(MTLPrimitiveTypeTriangleStrip, 0, 4);
                 renderer.endEncoding();
             } else {
+                /// Rendering for radius 1
                 int tempRad = 1;
                 id<MTLRenderPipelineState> pipelineState = [deviceCache pipelineStateWithRegistryID:sourceImages[0].deviceRegistryID
                                                                                         pixelFormat:pixelFormat
@@ -1047,14 +1127,17 @@
 
                 tempRad = 2;
                 while (tempRad++ <= state.kawaseBlurRadius) {
+                    /// Swapping textures in order to use ping-pong rendering method
                     id<MTLTexture> tempTexture = outputTexture;
                     outputTexture = inputTexture;
                     inputTexture = tempTexture;
 
+                    /// Swapping output texture in color attachment desctiptor and creating new command encoder
                     colorAttachmentDescriptor.texture = outputTexture;
                     renderPassDescriptor.colorAttachments[0] = colorAttachmentDescriptor;
                     commandEncoder = [commandBuffer renderCommandEncoderWithDescriptor:renderPassDescriptor];
 
+                    /// Setting encoder and viewport
                     renderer.setEncoder(commandEncoder);
                     renderer.setViewport(viewport);
 
@@ -1128,6 +1211,7 @@
 #pragma mark -
 #pragma mark Oil painting effect
         case (ET_OilPainting): {
+            /// Blurring image in order to get rid of strong noice
             id<MTLRenderPipelineState> pipelineState = [deviceCache pipelineStateWithRegistryID:sourceImages[0].deviceRegistryID
                                                                                     pixelFormat:pixelFormat
                                                                                    pipelineType:PT_GaussianBlur];
@@ -1147,6 +1231,7 @@
             renderer.draw(MTLPrimitiveTypeTriangleStrip, 0, 4);
             renderer.endEncoding();
 
+            /// Swapping textures and rendering oil painting effect
             id<MTLTexture> tempTexture = outputTexture;
             outputTexture = inputTexture;
             inputTexture = tempTexture;
@@ -1241,6 +1326,7 @@
                                                                                    pipelineType:PT_Echo];
             renderer.setRenderPipelineState(pipelineState);
             renderer.setFragmentTexture(inputTexture, TI_TimingEchoInputImage0);
+            /// Setting fragment textures depending on echo render type
             if (_typeToRenderEcho == TRT_Center) {
                 for (int i = 1; i < 2 * _numFrames - 1; i++) {
                     id<MTLTexture> tex = [sourceImages[i] metalTextureForDevice:[deviceCache deviceWithRegistryID:sourceImages[i].deviceRegistryID]];
@@ -1280,34 +1366,6 @@
             break;
         }
     }
-
-    commandBuffer = [commandQueue commandBuffer];
-    auto computeEncoder = [commandBuffer computeCommandEncoder];
-
-    auto pipState = [deviceCache computePipelineStateWithRegistryID:sourceImages[0].deviceRegistryID
-                                                        pixelFormat:pixelFormat
-                                                       pipelineType:KPT_EdgeDetectionCalculateMagnitude];
-
-    [computeEncoder setComputePipelineState:pipState];
-    [computeEncoder setTexture:inputTexture atIndex:KTI_Magnidute];
-
-    id<MTLBuffer> maxMBuffer = [MTLCreateSystemDefaultDevice() newBufferWithLength:sizeof(float) options:MTLResourceStorageModeShared];
-
-    float maxM = 0.0;
-    memcpy(maxMBuffer.contents, &maxM, sizeof(int));
-    [computeEncoder setBuffer:maxMBuffer offset:0 atIndex:KI_Magnitude];
-
-    MTLSize threadgroupSize = MTLSizeMake(16, 16, 1);
-    MTLSize threadgroups = MTLSizeMake(inputTexture.width, inputTexture.height, 1);
-    [computeEncoder dispatchThreadgroups:threadgroups threadsPerThreadgroup:threadgroupSize];
-    [computeEncoder endEncoding];
-
-    [commandBuffer commit];
-    [commandBuffer waitUntilCompleted];
-
-    float maxVal = *(float *)[maxMBuffer contents];
-
-    std::cout << "Max val: " << maxVal << std::endl;
 
     [colorAttachmentDescriptor release];
     [deviceCache returnCommandQueueToCache:commandQueue];

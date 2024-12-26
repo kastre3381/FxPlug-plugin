@@ -1,19 +1,19 @@
 #import <simd/simd.h>
 
 typedef enum VertexInputIndex {
-    VI_Vertices        = 0,
-    VI_ViewportSize    = 1
+    VI_Vertices = 0,
+    VI_ViewportSize = 1
 } VertexInputIndex;
 
 typedef enum TextureIndex {
     TI_NoneInputImage = 0,
-    TI_BrightnessInputImage  = 1,
-    TI_NegativeInputImage  = 2,
+    TI_BasicInputImage = 1,
+    TI_NegativeInputImage = 2,
     TI_GaussianBlurInputImage = 3,
     TI_KawaseBlurInputImage = 4,
     TI_BoxBlurInputImage = 5,
     TI_CircleBlurInputImage = 6,
-    
+
     TI_TimingEchoInputImage0 = 7,
     TI_TimingEchoInputImage1 = 8,
     TI_TimingEchoInputImage2 = 9,
@@ -23,17 +23,17 @@ typedef enum TextureIndex {
     TI_TimingEchoInputImage6 = 13,
     TI_TimingEchoInputImage7 = 14,
     TI_TimingEchoInputImage8 = 15,
-    
-    TI_LensFlareInputImage = 30,
 
+    TI_LensFlareInputImage = 30,
+    
     TI_OilPaintingInputImage = 100,
     TI_PixelationInputImage = 101,
     TI_FishEyeInputImage = 102,
 } TextureIndex;
 
 typedef enum FragmentIndexBasic {
-    FIB_Brightness  = 0,
-    FIB_Negative= 1,
+    FIB_Brightness = 0,
+    FIB_Negative = 1,
     FIB_GammaCorrection = 2,
     FIB_Lightness = 3,
     FIB_Saturation = 4,
@@ -41,7 +41,6 @@ typedef enum FragmentIndexBasic {
     FIB_Hue = 6,
     FIB_Channel = 7,
 } FragmentIndexBasic;
-
 
 typedef enum FragmentIndexGaussianBlur {
     FIGB_BlurRadius = 0,
@@ -103,8 +102,8 @@ typedef enum FragmentIndexTimingEcho {
 } FragmentIndexTimingEcho;
 
 typedef enum FragmentIndexLensFlare {
-    FILF_Location  = 0,
-    FILF_SunColor   = 1,
+    FILF_Location = 0,
+    FILF_SunColor = 1,
     FILF_Resolution = 2,
     FILF_ShowImage = 3,
     FILF_IntensityOfLight = 4,
@@ -115,20 +114,22 @@ typedef enum FragmentIndexLensFlare {
     FILF_AnflareThreshold = 9,
 } FragmentIndexLensFlare;
 
+
 typedef enum FragmentIndexOSC {
     FIOSC_Color = 1,
 } FragmentIndexOSC;
 
 typedef enum KernelTextureIndex {
-    KTI_Magnidute   = 0,
+    KTI_Magnidute = 0,
+    KTI_OutputTexture = 1,
 } KernelTextureIndex;
 
 typedef enum KernelIndexes {
-    KI_Magnitude    = 0,
+    KI_Magnitude = 0,
+    KI_OperatorType = 1,
 } KernelIndexes;
 
-
 typedef struct Vertex2D {
-    vector_float2   position;
-    vector_float2   textureCoordinate;
+    vector_float2 position;
+    vector_float2 textureCoordinate;
 } Vertex2D;

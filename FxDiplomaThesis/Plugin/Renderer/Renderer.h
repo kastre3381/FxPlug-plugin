@@ -43,6 +43,16 @@ public:
         m_encoder = encoder;
     }
     
+    void setComputeEncoder(id<MTLComputeCommandEncoder> encoder)
+    {
+        m_computeEncoder = encoder;
+    }
+    
+    void setBuffer(id<MTLCommandBuffer> buffer)
+    {
+        m_commandBuffer = buffer;
+    }
+    
     id<MTLRenderCommandEncoder> getEncoder() const
     {
         return m_encoder;
@@ -69,6 +79,11 @@ public:
         [m_encoder endEncoding];
     }
     
+    void endComputeEncoding() const
+    {
+        [m_computeEncoder endEncoding];
+    }
+    
     void commitAndWaitUntilCompleted() const
     {
         [m_commandBuffer commit];
@@ -78,6 +93,11 @@ public:
     void setViewport(MTLViewport viewport) const
     {
         [m_encoder setViewport:viewport];
+    }
+    
+    void dispatchThreadGroups(MTLSize threadgroups, MTLSize threadGroupSize)
+    {
+        [m_computeEncoder dispatchThreadgroups:threadgroups threadsPerThreadgroup:threadGroupSize];
     }
     
     template<typename W>
